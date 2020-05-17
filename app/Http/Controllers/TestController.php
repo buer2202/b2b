@@ -8,7 +8,6 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        my_config(['a' => 'bbb']);
-        dump(my_config('a', 'b'));
+        return view('test');
     }
 }

@@ -15,6 +15,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // 平台ID，用来区分平台
+    'platform_id' => env('PLATFORM_ID', 'txjsq'),
+    // WebSocket 服务地址
+    'ws_url' => env('WEBSOCKET_URL', 'ws://10.0.8.150:20000'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -121,7 +126,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 

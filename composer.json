@@ -12,6 +12,7 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1",
+        "workerman/gateway-worker": "^3.0",
         "workerman/gatewayclient": "^3.0"
     },
     "require-dev": {

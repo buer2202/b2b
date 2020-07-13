@@ -13,6 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // 手动配置迁移命令migrate生成的默认字符串长度
+        // \Schema::defaultStringLength(191);
+
         // 常规状态
         $GLOBALS['status'] = [0 => '禁用', 1 => '正常'];
     }

@@ -60,4 +60,27 @@ class UserRepository
 
         return true;
     }
+
+    // 更新用户角色
+    public static function updateRoles($id, $roleIds)
+    {
+        $model = self::find($id);
+
+        // 更新权限
+        $model->roles()->sync($roleIds);
+
+        self::cleanUserCache();
+
+        return true;
+    }
+
+    // 清除缓存
+    public static function cleanUserCache($tags = [])
+    {
+        $tags = $tags ?: ['home:user:rule', 'home:user:menu'];
+
+        Cache::tags($tags)->flush();
+
+        return true;
+    }
 }

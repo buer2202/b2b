@@ -12,6 +12,31 @@ Route::post('password', 'PasswordController@update')->name('admin.password.updat
 Route::namespace('User')->prefix('user')->group(function () {
     Route::get('/', 'IndexController@index')->name('admin.user.index.index');
     Route::patch('{id}/status', 'IndexController@status')->name('admin.user.index.status');
+    // 用户详情
+    Route::get('info/{userId}', 'IndexController@info')->name('admin.user.index.info');
+    // 获取角色
+    Route::get('roles/{id}', 'IndexController@roles')->name('admin.user.index.roles');
+    // 更新角色
+    Route::post('roles/{id}', 'IndexController@updateRoles')->name('admin.user.index.update-roles');
+    // 设置备注
+    Route::post('remark/{userId}', 'IndexController@remark')->name('admin.user.index.remark');
+
+    // 角色管理
+    Route::post('role/update-rules/{id}', 'RoleController@updateRules')->name('admin.user.role.update-rules');
+    Route::resource('role', 'RoleController', ['names' => [
+        'index'  => 'admin.user.role.index',
+        'store'  => 'admin.user.role.store',
+        'update' => 'admin.user.role.update',
+        'show'   => 'admin.user.role.show',
+    ], 'only' => ['index', 'store', 'show', 'update']]);
+
+    // 权限管理
+    Route::resource('rule', 'RuleController', ['names' => [
+        'index'  => 'admin.user.rule.index',
+        'store'  => 'admin.user.rule.store',
+        'show'   => 'admin.user.rule.show',
+        'update' => 'admin.user.rule.update',
+    ], 'only' => ['index', 'store', 'show', 'update']]);
 });
 
 // 财务管理

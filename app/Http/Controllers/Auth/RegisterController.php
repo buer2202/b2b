@@ -48,9 +48,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'email' => 'bail|required|string|email|max:255|unique:users',
+            'password' => 'bail|required|string|min:6|confirmed',
+            'type' => 'bail|required|in:1,2',
+            'license' => 'bail|max:100',
+            'company' => 'bail|max:50',
+            'real_name' => 'bail|required|string|max:20',
+            'id_number' => 'bail|required|string|max:20',
+            'phone' => 'bail|required|string|max:20',
         ]);
     }
 
@@ -62,10 +67,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $user = User::create([
+            'email'       => $data['email'],
+            'password'    => bcrypt($data['password']),
+            'type'        => $data['type'],
+            'license'     => $data['license'] ?: null,
+            'company'     => $data['company'] ?: null,
+            'real_name'   => $data['real_name'],
+            'id_number'   => $data['id_number'],
+            'phone'       => $data['phone'],
+            'status'      => 1,
+            'auth_status' => 0,
+            'secret_id'   => str_random(32),
+            'secret_key'  => encrypt(str_random(32)),
         ]);
+
+        return $user;
     }
 }

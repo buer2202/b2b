@@ -1,0 +1,46 @@
+/* 清明祭 */
+/* html {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+    _filter:none;
+} */
+
+.layui-nav {border-radius: 0;}
+.layui-nav-side {margin-top: 60px;}
+.main {margin-left: 200px; padding: 10px;}
+.content {margin-top: 15px;}
+.red {color: #FF5722;}
+.orange {color: #FFB800;}
+.green {color: #009688;}
+.green-1 {color: #5FB878;}
+.cyan {color: #2F4056;}
+.blue {color: #01AAED;}
+.blue-1 {color: #1E9FFF;}
+.black {color: #393D49;}
+.m-t{margin-top: 20px;}
+
+body {min-width: 1200px;}
+.layui-layout-admin .layui-body {bottom: 0;}
+
+/* 分页样式-开始 */
+.pagination > li a, .pagination > li span{
+    float: left;
+    min-width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin-right: 2px;
+}
+.pagination > .active span {
+    color: #fff;
+    background: #139ff0;
+    border: 1px solid #139ff0;
+}
+/* 分页样式-结束 */
+
+/* 不可点击菜单 */
+.side-nav-readonly {display:block;color:#ccc;padding:0 20px;line-height:45px;background-color: #23262E;}

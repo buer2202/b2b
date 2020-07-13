@@ -28,8 +28,8 @@
 <table class="table table-striped table-condensed m-t">
     <tr>
         <th>用户ID</th>
-        <th>名字</th>
         <th>E-Mail</th>
+        <th>名字</th>
         <th>状态</th>
         <th>注册时间</th>
         <th>最后更新</th>

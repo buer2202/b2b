@@ -7,8 +7,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Models\PlatformAmountFlow;
 use App\Jobs\RemoveFile;
+use Buer\Asset\Models\PlatformAmountFlow;
 use Carbon\Carbon;
 use GatewayClient\Gateway;
 
@@ -57,7 +57,7 @@ class PlatformAmountFlowJob implements ShouldQueue
             mkdir($dir, 0777, true);
         }
 
-        $fileName = 'platform_amount_flow_' . uniqid() . '.csv';
+        $fileName = 'platform_amount_flow_at_' . date('Y-m-d-H:i:s') . '.csv';
         $filePath = $dir . "/{$fileName}";
         $file = fopen($filePath, 'w');
 
@@ -140,6 +140,6 @@ class PlatformAmountFlowJob implements ShouldQueue
         Gateway::sendToGroup($this->gatewayGroupId, json_encode(['type' => 'complete_platform_amount_flow', 'message' => "/exports/{$fileName}"]));
 
         // 10分钟后删除文件
-        RemoveFile::dispatch($filePath)->delay(Carbon::now()->addMinutes(config('general.export_file_hold_minute')));
+        RemoveFile::dispatch($filePath)->delay(Carbon::now()->addMinutes(10));
     }
 }

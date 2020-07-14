@@ -36,11 +36,9 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
         $this->mapHomeRoutes();
         $this->mapAdminRoutes();
-        $this->mapMobileRoutes();
     }
 
     /**
@@ -76,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapHomeRoutes()
     {
         Route::prefix('home')
-             ->middleware(['web', 'auth'])
+             ->middleware(['web', 'auth', 'home.rbac'])
              ->namespace($this->namespace . '\Home')
              ->group(base_path('routes/home.php'));
     }
@@ -88,14 +86,5 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware(['web', 'auth:admin', 'admin.rbac'])
              ->namespace($this->namespace . '\Admin')
              ->group(base_path('routes/admin.php'));
-    }
-
-    // mobile
-    protected function mapMobileRoutes()
-    {
-        Route::prefix('m')
-             ->middleware(['web'])
-             ->namespace($this->namespace . '\Mobile')
-             ->group(base_path('routes/mobile.php'));
     }
 }

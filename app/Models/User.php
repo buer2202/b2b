@@ -42,6 +42,12 @@ class User extends Authenticatable
         return $this->hasOne(UserAsset::class);
     }
 
+    // 用户角色
+    public function roles()
+    {
+        return $this->belongsToMany(HomeAuthRole::class, 'home_auth_user_roles');
+    }
+
     // 更新密码
     public function updatePassword($originPassword, $password)
     {

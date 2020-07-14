@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/home/user';
 
     /**
      * Create a new controller instance.
@@ -48,14 +48,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'email' => 'bail|required|string|email|max:255|unique:users',
-            'password' => 'bail|required|string|min:6|confirmed',
-            'type' => 'bail|required|in:1,2',
-            'license' => 'bail|max:100',
-            'company' => 'bail|max:50',
+            'email'     => 'bail|required|string|email|max:255|unique:users',
+            'password'  => 'bail|required|string|min:6|confirmed',
+            'type'      => 'bail|required|in:1,2',
+            'license'   => 'bail|max:100',
+            'company'   => 'bail|max:50',
             'real_name' => 'bail|required|string|max:20',
             'id_number' => 'bail|required|string|max:20',
-            'phone' => 'bail|required|string|max:20',
+            'phone'     => 'bail|required|string|max:20',
         ]);
     }
 
@@ -78,9 +78,10 @@ class RegisterController extends Controller
             'phone'       => $data['phone'],
             'status'      => 1,
             'auth_status' => 0,
-            'secret_id'   => str_random(32),
             'secret_key'  => encrypt(str_random(32)),
         ]);
+        $user->secret_id = uniqid($user->id);
+        $user->save();
 
         return $user;
     }

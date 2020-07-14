@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Admin\HomeAuthRoleRepository;
 use App\Repositories\Admin\UserRepository;
 
 class IndexController extends Controller
@@ -12,26 +13,18 @@ class IndexController extends Controller
     public function index(Request $request)
     {
         $dataList = UserRepository::getList($request->user_id, $request->email, $request->name, $request->remark);
-        return view('admin.user.index.index', compact('dataList'));
+        $roles = HomeAuthRoleRepository::getList(1);
+        return view('admin.user.index.index', compact('dataList', 'roles'));
     }
 
     // 获取密钥
     public function info($userId)
     {
         $user = UserRepository::find($userId);
-
+        $secretKey = decrypt($user->secret_key);
         $html = '';
-        if ($user->type == 2) {
-            $html .= "<p>企业名：{$user->company}</p>";
-            $html .= "<p>营业执照号：{$user->license}</p>";
-        }
-
-        $html .= "<p>真实姓名：{$user->real_name}</p>";
-        $html .= "<p>身份证号：{$user->id_number}</p>";
-        $html .= "<p>手机号码：{$user->phone}</p>";
-        $html .= "<p>联系qq：{$user->qq}</p>";
-        $html .= "<p>API密钥：</p><p class=\"text-warning\">{$user->api_secret}</p>";
-
+        $html .= "<b>secret_id：</b><p>{$user->secret_id}</p>";
+        $html .= "<b>secret_key：</b><p>{$secretKey}</p>";
         return response()->ajax(1, 'success', $html);
     }
 

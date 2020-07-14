@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Exceptions\CustomException;
+use App\Notifications\ResetPasswordNotification;
 use Buer\Asset\Models\UserAsset;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,6 +62,17 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    /**
+     * 发送密码重置通知。
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     // 权限验证

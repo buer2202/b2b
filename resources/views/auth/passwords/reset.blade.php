@@ -1,70 +1,61 @@
 @extends('layouts.app')
 
+@section('title', '重设密码')
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
-                        {{ csrf_field() }}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+<blockquote class="layui-elem-quote layui-quote-nm">
+    <div class="layui-tab layui-tab-brief" lay-filter="user">
+        <ul class="layui-tab-title">
+            <li class="layui-this">重设密码</li>
+        </ul>
+        <div class="layui-form layui-tab-content" style="padding: 20px 0;">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-form layui-form-pane">
+                    <form method="post" action="{{ route('password.request') }}">
+                        <div class="layui-form-item">
+                            <label for="email" class="layui-form-label">注册邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="email" name="email" lay-verify="email" autocomplete="off" class="layui-input" value="{{ $email or old('email') }}" />
                             </div>
+                            @if ($errors->has('email'))
+                                <div class="layui-form-mid red">{{ $errors->first('email') }}</div>
+                            @endif
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="layui-form-item">
+                            <label for="password" class="layui-form-label">新密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="password" name="password" lay-verify="required" autocomplete="off" class="layui-input" />
                             </div>
+                            @if ($errors->has('password'))
+                                <div class="layui-form-mid red">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="layui-form-item">
+                            <label for="password-confirm" class="layui-form-label">确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="password" id="password-confirm" name="password_confirmation" lay-verify="required" autocomplete="off" class="layui-input" />
                             </div>
+                            @if ($errors->has('password_confirmation'))
+                                <div class="layui-form-mid red">{{ $errors->first('password_confirmation') }}</div>
+                            @endif
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Reset Password
-                                </button>
-                            </div>
+                        <div class="layui-form-item">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="token" value="{{ $token }}">
+                            <button class="layui-btn" lay-filter="*" lay-submit="">重设密码</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</blockquote>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+layui.use('form', function () {
+    var form = layui.form;
+});
+</script>
 @endsection

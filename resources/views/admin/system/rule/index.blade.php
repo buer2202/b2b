@@ -71,14 +71,14 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">权限</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="填路由命名。例: admin.system.rule.index">
+                            <input type="text" class="form-control" id="name" placeholder="填路由命名。例: admin.system.rule.index" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="title" class="col-sm-2 control-label">权限名</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="title" placeholder="填权限中文名">
+                            <input type="text" class="form-control" id="title" placeholder="填权限中文名" autocomplete="off">
                         </div>
                     </div>
 
@@ -135,7 +135,7 @@
                     <div class="form-group">
                         <label for="sortord" class="col-sm-2 control-label">排序</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="sortord" placeholder="填整数，越小越靠前，可以为负数">
+                            <input type="text" class="form-control" id="sortord" placeholder="填整数，越小越靠前，可以为负数" autocomplete="off">
                         </div>
                     </div>
 

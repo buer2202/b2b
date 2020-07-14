@@ -8,4 +8,10 @@ return [
         'admin.web-socket.gateway-worker.bind',
         'admin.index.download',
     ],
+
+    // 不参加权限验证的路由
+    'home_except' => [
+        'home.user.index.index',
+        'home.web-socket.gateway-worker.bind',
+    ],
 ];

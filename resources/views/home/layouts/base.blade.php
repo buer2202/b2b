@@ -19,7 +19,7 @@
             <!-- 内容主体区域 -->
             <div style="padding: 15px;">
                 <span class="layui-breadcrumb">
-                    <a href="{{ route('home.user.index') }}">首页</a>
+                    <a href="{{ route('home.user.index.index') }}">首页</a>
                     <a><cite>{{ $breadcrumbMiddlename ?? '' }}</cite></a>
                     <a><cite>{{ $breadcrumbLastname ?? '' }}</cite></a>
                 </span>

@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
         'admin.rbac' => \App\Http\Middleware\AdminRBAC::class,
+        'home.rbac' => \App\Http\Middleware\HomeRBAC::class,
     ];
 }

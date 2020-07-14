@@ -33,7 +33,7 @@ class User extends Authenticatable
     // 创建资产
     public function createAsset()
     {
-        $this->asset()->save(new UserAsset);
+        $this->userAsset()->save(new UserAsset);
     }
 
     // 获取资产
@@ -69,7 +69,7 @@ class User extends Authenticatable
         $currentRouteName = $routeName ?: Route::currentRouteName();
 
         // 例外的路由
-        if (in_array($currentRouteName, config('user.rbac_except'))) {
+        if (in_array($currentRouteName, config('rbac.home_except'))) {
             return true;
         }
 

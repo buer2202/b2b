@@ -14,9 +14,7 @@ class AmountFlowController extends Controller
         $tradeType = $request->trade_type;
         $timeStart = $request->time_start;
         $timeEnd   = $request->time_end;
-
         $dataList = UserAmountFlowRepository::getList($tradeNo, $tradeType, $timeStart, $timeEnd);
-
         $assetTradeTypeUser = config('asset.trade_type.user');
 
         return view('home.finance.amount-flow.index', compact('dataList', 'tradeNo', 'tradeType', 'timeStart', 'timeEnd', 'assetTradeTypeUser'));

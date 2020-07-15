@@ -20,8 +20,7 @@ class WithdrawController extends Controller
     {
         $dataList = UserWithdrawOrderRepository::getList($request->time_start, $request->time_end, $request->status);
         $assetWithdrawStatus = config('asset.withdraw.status');
-        $tradingAccounts = UserTradingAccountRepository::getList(1);
-        return view('home.finance.withdraw.index', compact('dataList', 'assetWithdrawStatus', 'tradingAccounts'));
+        return view('home.finance.withdraw.index', compact('dataList', 'assetWithdrawStatus'));
     }
 
     /**

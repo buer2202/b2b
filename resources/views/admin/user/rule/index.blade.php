@@ -175,14 +175,14 @@ $('.edit').click(function () {
             return false;
         }
 
-        $('#name').val(data.content.name);
-        $('#title').val(data.content.title);
-        $('#group').val(data.content.group);
-        $('#group_name').val(data.content.group_name);
-        $('#sortord').val(data.content.sortord);
-        $('[name="status"][value="' + data.content.status + '"]').prop('checked', true);
-        $('[name="menu_show"][value="' + data.content.menu_show + '"]').prop('checked', true);
-        $('[name="menu_click"][value="' + data.content.menu_click + '"]').prop('checked', true);
+        $('#name').val(data.contents.name);
+        $('#title').val(data.contents.title);
+        $('#group').val(data.contents.group);
+        $('#group_name').val(data.contents.group_name);
+        $('#sortord').val(data.contents.sortord);
+        $('[name="status"][value="' + data.contents.status + '"]').prop('checked', true);
+        $('[name="menu_show"][value="' + data.contents.menu_show + '"]').prop('checked', true);
+        $('[name="menu_click"][value="' + data.contents.menu_click + '"]').prop('checked', true);
 
         $('#myModal').modal();
     }, 'json');

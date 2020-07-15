@@ -16,6 +16,7 @@ Route::any('test', 'TestController@index');
 // 首页
 Route::get('/', 'IndexController@index')->name('index.index');
 
+// 前台用户认证（Illuminate\Routing\Router@auth）
 Auth::routes();
 
 // 后台管理员认证

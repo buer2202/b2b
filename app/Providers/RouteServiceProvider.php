@@ -51,8 +51,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -65,26 +65,26 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 
     // home
     protected function mapHomeRoutes()
     {
         Route::prefix('home')
-             ->middleware(['web', 'auth', 'home.rbac'])
-             ->namespace($this->namespace . '\Home')
-             ->group(base_path('routes/home.php'));
+            ->middleware(['web', 'auth', 'home.rbac'])
+            ->namespace($this->namespace . '\Home')
+            ->group(base_path('routes/home.php'));
     }
 
     // admin
     protected function mapAdminRoutes()
     {
         Route::prefix('admin')
-             ->middleware(['web', 'auth:admin', 'admin.rbac'])
-             ->namespace($this->namespace . '\Admin')
-             ->group(base_path('routes/admin.php'));
+            ->middleware(['web', 'auth:admin', 'admin.rbac'])
+            ->namespace($this->namespace . '\Admin')
+            ->group(base_path('routes/admin.php'));
     }
 }

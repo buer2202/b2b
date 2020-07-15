@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\WebSocket;
+namespace App\Http\Controllers\Home\WebSocket;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,9 +15,9 @@ class GatewayWorkerController extends Controller
         }
 
         // 加入已用户id命名的群组
-        $groupId = gateway_group_id('admin');
+        $groupId = gateway_group_id('home');
         Gateway::joinGroup($request->client_id, $groupId);
-        Gateway::sendToGroup($groupId, '{"admin":"bind test"}');
+        Gateway::sendToGroup($groupId, '{"home":"bind test"}');
 
         return response()->ajax(1);
     }

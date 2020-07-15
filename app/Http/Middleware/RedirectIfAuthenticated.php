@@ -23,12 +23,8 @@ class RedirectIfAuthenticated
                     return redirect('/admin');
                     break;
 
-                case 'mobile':
-                    return redirect('/m');
-                    break;
-
                 default:
-                    return redirect('/home');
+                    return redirect('/home/user');
                     break;
             }
         }

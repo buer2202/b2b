@@ -59,17 +59,12 @@ class Handler extends ExceptionHandler
         }
 
         $guards = $exception->guards();
-        $guard = ! empty($guards) ? $guards[0] : null;
+        $guard = !empty($guards) ? $guards[0] : null;
 
         switch ($guard) {
             case 'admin':
                 return redirect()->guest(route('admin.login'));
                 break;
-
-            case 'mobile':
-                return redirect()->guest(route('mobile.login'));
-                break;
-
             default:
                 return redirect()->guest(route('login'));
                 break;

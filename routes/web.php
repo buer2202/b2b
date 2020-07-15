@@ -13,18 +13,12 @@
 
 Route::any('test', 'TestController@index');
 
-Route::get('/', function () {
-    return view('home.welcome');
-});
+// 首页
+Route::get('/', 'IndexController@index')->name('index.index');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 // 后台管理员认证
 Route::get('admin/login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 Route::post('admin/login', 'Admin\LoginController@login')->name('admin.login');
 Route::post('admin/logout', 'Admin\LoginController@logout')->name('admin.logout');
-
-// gateway公共绑定接口
-Route::post('gateway-worker/bind', 'GatewayWorkerController@bind')->name('gateway-worker.bind');

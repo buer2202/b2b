@@ -4,8 +4,8 @@ namespace App\Repositories\Home;
 use DB;
 use Auth;
 use App\Models\UserWithdrawOrder;
-use App\Models\UserTradingAccount;
 use App\Exceptions\CustomException;
+use App\Models\UserSettlementAccount;
 use Asset;
 use Carbon\Carbon;
 
@@ -43,7 +43,7 @@ class UserWithdrawOrderRepository
         DB::beginTransaction();
 
         // 先查询结算账号
-        $userTradingAccount = UserTradingAccount::where('user_id', Auth::id())->find($accountId);
+        $userSettlementAccount = UserSettlementAccount::where('user_id', Auth::id())->find($accountId);
 
         $fee = round($fee, 2); // 保留2位小数
         $withdrawNo = generate_order_no();
@@ -56,14 +56,14 @@ class UserWithdrawOrderRepository
         $withdraw->fee     = $fee;
         $withdraw->user_id = $userId;
         $withdraw->remark  = '用户申请提现';
-        $withdraw->from_account  = Auth::user()->platformAlipay();
+        $withdraw->from_account  = '';
 
         $withdraw->pay_type             = 2;
-        $withdraw->trustee              = $userTradingAccount->trustee;
-        $withdraw->receive_account      = $userTradingAccount->account;
-        $withdraw->receive_account_type = $userTradingAccount->type;
-        $withdraw->name                 = $userTradingAccount->name;
-        $withdraw->acc_type             = $userTradingAccount->acc_type;
+        $withdraw->trustee              = $userSettlementAccount->trustee;
+        $withdraw->receive_account      = $userSettlementAccount->account;
+        $withdraw->receive_account_type = $userSettlementAccount->type;
+        $withdraw->name                 = $userSettlementAccount->name;
+        $withdraw->acc_type             = $userSettlementAccount->acc_type;
 
         if (!$withdraw->save()) {
             DB::rollback();

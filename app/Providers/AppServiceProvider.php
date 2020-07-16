@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
         // 常规状态
         $GLOBALS['status'] = [0 => '禁用', 1 => '正常'];
+        $GLOBALS['on_off'] = [0 => '关闭', 1 => '开启'];
     }
 
     /**

@@ -14,7 +14,8 @@ class IndexController extends Controller
     {
         $dataList = UserRepository::getList($request->user_id, $request->email, $request->name, $request->remark);
         $roles = HomeAuthRoleRepository::getList(1);
-        return view('admin.user.index.index', compact('dataList', 'roles'));
+        $config = config('user');
+        return view('admin.user.index.index', compact('dataList', 'roles', 'config'));
     }
 
     // 获取密钥

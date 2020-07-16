@@ -39,8 +39,8 @@
             <td>{{ $GLOBALS['status'][$data->status] }}</td>
             <td>{{ $data->group }}</td>
             <td>{{ $data->group_name }}</td>
-            <td>{{ $GLOBALS['status'][$data->menu_show] }}</td>
-            <td>{{ $GLOBALS['status'][$data->menu_click] }}</td>
+            <td>{{ $GLOBALS['on_off'][$data->menu_show] }}</td>
+            <td>{{ $GLOBALS['on_off'][$data->menu_click] }}</td>
             <td>{{ $data->sortord }}</td>
             <td>{{ $data->created_at }}</td>
             <td>{{ $data->updated_at }}</td>

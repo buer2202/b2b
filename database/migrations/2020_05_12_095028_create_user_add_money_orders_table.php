@@ -17,9 +17,9 @@ class CreateUserAddMoneyOrdersTable extends Migration
             $table->increments('id');
             $table->string('no', 30)->comment('编号');
             $table->string('external_order_id', 50)->nullable()->default(null)->comment('外部订单号');
-            $table->tinyInteger('pay_type')->default(1)->comment('支付类型: 1.线下加款 2.支付宝');
+            $table->tinyInteger('pay_type')->default(1)->comment('支付类型: 1.线下加款 2.线上加款');
             $table->string('receive_account', 100)->default(1)->comment('收款账号');
-            $table->tinyInteger('status')->comment('状态：1.创建加款单 2.财务审核 3.财务拒绝');
+            $table->tinyInteger('status')->comment('状态：1.已创建 2.财务审核 3.财务拒绝');
             $table->decimal('fee', 10, 2)->comment('金额');
             $table->unsignedInteger('user_id')->comment('加款用户id，关联users.id');
             $table->unsignedInteger('created_by')->comment('创建人，关联admins.id');

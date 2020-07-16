@@ -45,7 +45,7 @@
     <tr>
         <td>{{ $data->id }}</td>
         <td>{{ $data->email }}</td>
-        <td>{{ $data->remark }}</td>
+        <td>{{ $data->remark ?: '--' }}</td>
         <td>
             @if ($data->status)
             <button class="btn btn-success btn-xs status" data-url="{{ route('admin.user.index.status', $data->id) }}"
@@ -57,12 +57,12 @@
             </button>
             @endif
         </td>
-        <td>{{ $data->type }}</td>
+        <td>{{ $config['type'][$data->type] }}</td>
         <td>{{ $data->phone }}</td>
         <td>{{ $data->real_name }}</td>
         <td>{{ $data->id_number }}</td>
-        <td>{{ $data->company }}</td>
-        <td>{{ $data->license }}</td>
+        <td>{{ $data->company ?: '--' }}</td>
+        <td>{{ $data->license ?: '--' }}</td>
         <td>{{ $data->created_at }}</td>
         <td>{{ $data->updated_at }}</td>
         <td>

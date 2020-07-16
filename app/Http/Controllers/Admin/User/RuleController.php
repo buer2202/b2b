@@ -17,8 +17,6 @@ class RuleController extends Controller
     public function index(Request $request)
     {
         $dataList = HomeAuthRuleRepository::getList($request->title, $request->group_name);
-
-        $config = config('user');
         return view('admin.user.rule.index', compact('dataList', 'config'));
     }
 

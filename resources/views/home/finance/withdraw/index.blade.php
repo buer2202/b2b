@@ -63,12 +63,12 @@
 {{ $dataList->appends(Request::all())->links() }}
 
 <div id="add-window" class="layui-form" style="padding:20px 50px 0 0; display: none;">
-    @if ($tradingAccounts->isNotEmpty())
+    @if ($settlementAccount->isNotEmpty())
         <div class="layui-form-item">
             <label class="layui-form-label">收款账号</label>
             <div class="layui-input-block">
                 <select id="account-id">
-                    @foreach ($tradingAccounts as $account)
+                    @foreach ($settlementAccount as $account)
                         <option value="{{ $account->id }}">{{ $account->account }}</option>
                     @endforeach
                 </select>

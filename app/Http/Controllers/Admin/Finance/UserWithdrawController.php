@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Admin\UserWithdrawOrderRepository;
 use App\Exceptions\CustomException;
-use Illuminate\Validation\Rule;
 
 class UserWithdrawController extends Controller
 {
@@ -59,66 +58,16 @@ class UserWithdrawController extends Controller
         return response()->ajax(1);
     }
 
-    // 回填单号
-    public function orderIdBackfill($id, Request $request)
+    // 线下提现
+    public function offlinePay($id)
     {
-        $this->validate($request, [
-            'external_order_id' => 'bail|required|numeric:20,50',
-            'from_account'      => ['required', Rule::in(config('asset.api_alipay_account'))],
-            'amount'            => 'bail|required|numeric|min:0.01|max:1000000',
-        ]);
-
         try {
-            UserWithdrawOrderRepository::orderIdBackfill(
-                $id,
-                $request->external_order_id,
-                $request->from_account,
-                $request->amount,
-                $request->remark
-            );
+            UserWithdrawOrderRepository::offlinePay($id);
         }
         catch(CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 
         return response()->ajax(1);
-    }
-
-    // 自动转账
-    public function autoTransfer($id, Request $request)
-    {
-        $this->validate($request, ['from_account' => ['required', Rule::in(config('asset.api_alipay_account'))]]);
-
-        try {
-            UserWithdrawOrderRepository::autoTransfer($id, $request->from_account, $request->remark);
-        } catch (CustomException $e) {
-            return response()->ajax(0, $e->getMessage());
-        }
-
-        return response()->ajax(1);
-    }
-
-    // 福禄提现
-    public function fulu($id)
-    {
-        try {
-            UserWithdrawOrderRepository::fulu($id);
-        } catch (CustomException $e) {
-            return response()->ajax(0, $e->getMessage());
-        }
-
-        return response()->ajax(1);
-    }
-
-    // 查看转账信息
-    public function fuluInfo($id)
-    {
-        try {
-            $res = UserWithdrawOrderRepository::fuluInfo($id);
-        } catch (CustomException $e) {
-            return response()->ajax(0, $e->getMessage());
-        }
-
-        return response()->ajax(1, 'success', $res);
     }
 }

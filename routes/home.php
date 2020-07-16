@@ -18,7 +18,7 @@ Route::namespace('User')->prefix('user')->group(function () {
 
 // 财务管理
 Route::namespace('Finance')->prefix('finance')->group(function () {
-    // 资产首页
+    // 我的资金
     Route::get('/', 'IndexController@index')->name('home.finance.index.index');
 
     // 资金流水
@@ -34,4 +34,8 @@ Route::namespace('Finance')->prefix('finance')->group(function () {
     Route::get('withdraw', 'WithdrawController@index')->name('home.finance.withdraw.index');
     // 提现申请
     Route::post('withdraw/store', 'WithdrawController@store')->name('home.finance.withdraw.store');
+
+    // 结算账号管理
+    Route::get('settlement-account', 'SettlementAccountController@index')->name('home.finance.settlement-account.index');
+    Route::post('settlement-account', 'SettlementAccountController@store')->name('home.finance.settlement-account.store');
 });

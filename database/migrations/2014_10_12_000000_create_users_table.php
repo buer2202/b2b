@@ -34,6 +34,8 @@ class CreateUsersTable extends Migration
             $table->unique('email');
             $table->unique('secret_id');
         });
+
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE users AUTO_INCREMENT=' . rand(1000, 9999));
     }
 
     /**

@@ -13,13 +13,13 @@ Route::namespace('User')->prefix('user')->group(function () {
     Route::get('/', 'IndexController@index')->name('admin.user.index.index');
     Route::patch('{id}/status', 'IndexController@status')->name('admin.user.index.status');
     // 用户详情
-    Route::get('info/{userId}', 'IndexController@info')->name('admin.user.index.info');
+    Route::get('api-secret/{id}', 'IndexController@apiSecret')->name('admin.user.index.api-secret');
     // 获取角色
     Route::get('roles/{id}', 'IndexController@roles')->name('admin.user.index.roles');
     // 更新角色
     Route::post('roles/{id}', 'IndexController@updateRoles')->name('admin.user.index.update-roles');
     // 设置备注
-    Route::post('remark/{userId}', 'IndexController@remark')->name('admin.user.index.remark');
+    Route::post('remark/{id}', 'IndexController@remark')->name('admin.user.index.remark');
 
     // 角色管理
     Route::post('role/update-rules/{id}', 'RoleController@updateRules')->name('admin.user.role.update-rules');

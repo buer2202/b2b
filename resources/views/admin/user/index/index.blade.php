@@ -70,7 +70,7 @@
             <button class="btn btn-success btn-xs remark" data-url="{{ route('admin.user.index.remark', $data->id) }}">备注</button>
             @endif
             <button class="btn btn-warning btn-xs role" data-url="{{ route('admin.user.index.update-roles', $data->id) }}">角色</button>
-            <button class="btn btn-danger btn-xs info" data-url="{{ route('admin.user.index.info', $data->id) }}">密钥</button>
+            <button class="btn btn-danger btn-xs api-secret" data-url="{{ route('admin.user.index.api-secret', $data->id) }}">密钥</button>
         </td>
     </tr>
     @endforeach
@@ -150,7 +150,7 @@
     });
 
     // 详情
-    $('.info').click(function () {
+    $('.api-secret').click(function () {
         $.get($(this).data('url'), function (data) {
             if (data.status == 1) {
                 layer.alert(data.contents);

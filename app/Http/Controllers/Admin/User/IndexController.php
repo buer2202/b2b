@@ -19,7 +19,7 @@ class IndexController extends Controller
     }
 
     // 获取密钥
-    public function info($userId)
+    public function apiSecret($userId)
     {
         $user = UserRepository::find($userId);
         $secretKey = decrypt($user->secret_key);

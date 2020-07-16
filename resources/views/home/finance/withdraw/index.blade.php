@@ -88,7 +88,7 @@
     @else
         <div style="margin-left: 20px;">
             您尚未设置结算账号，请设置后再提现。
-            <a type="button" class="layui-btn layui-btn-normal layui-btn-xs" href="{{ route('home.user.trading-account') }}">去设置</a>
+            <a type="button" class="layui-btn layui-btn-normal layui-btn-xs" href="{{ route('home.finance.settlement-account.index') }}">去设置</a>
         </div>
     @endif
 </div>

@@ -12,11 +12,8 @@ class UserWithdrawController extends Controller
     public function index(Request $request)
     {
         $dataList = UserWithdrawOrderRepository::getList($request->no, $request->user_id, $request->status);
-        $status = config('asset.withdraw');
-        $userTradingAccount = config('user.trading_account');
-        $defaultFromAccount = config('asset.api_alipay_account')[0];
-
-        return view('admin.finance.user-withdraw.index', compact('dataList', 'status', 'userTradingAccount', 'defaultFromAccount'));
+        $config = config('asset');
+        return view('admin.finance.user-withdraw.index', compact('dataList', 'config'));
     }
 
     // 部门审核
@@ -24,8 +21,7 @@ class UserWithdrawController extends Controller
     {
         try {
             UserWithdrawOrderRepository::department($id);
-        }
-        catch(CustomException $e) {
+        } catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 
@@ -37,8 +33,7 @@ class UserWithdrawController extends Controller
     {
         try {
             UserWithdrawOrderRepository::finance($id);
-        }
-        catch(CustomException $e) {
+        } catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 
@@ -50,8 +45,7 @@ class UserWithdrawController extends Controller
     {
         try {
             UserWithdrawOrderRepository::refuse($id);
-        }
-        catch(CustomException $e) {
+        } catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 
@@ -59,12 +53,11 @@ class UserWithdrawController extends Controller
     }
 
     // 线下提现
-    public function offlinePay($id)
+    public function offlinePay($id, Request $request)
     {
         try {
-            UserWithdrawOrderRepository::offlinePay($id);
-        }
-        catch(CustomException $e) {
+            UserWithdrawOrderRepository::offlinePay($id, $request->external_order_id, $request->remark);
+        } catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 

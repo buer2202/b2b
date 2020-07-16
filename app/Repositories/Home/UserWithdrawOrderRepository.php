@@ -57,8 +57,6 @@ class UserWithdrawOrderRepository
         $withdraw->user_id = $userId;
         $withdraw->remark  = '用户申请提现';
         $withdraw->from_account  = '';
-
-        $withdraw->pay_type             = 2;
         $withdraw->trustee              = $userSettlementAccount->trustee;
         $withdraw->receive_account      = $userSettlementAccount->account;
         $withdraw->receive_account_type = $userSettlementAccount->type;
@@ -71,7 +69,7 @@ class UserWithdrawOrderRepository
         }
 
         // 资产冻结
-        Asset::freeze($fee, 32, $withdrawNo, '线上提款冻结资金', $userId, 0, $withdraw); // 冻结
+        Asset::freeze($fee, 31, $withdrawNo, '用户申请提现', $userId, 0, $withdraw); // 冻结
 
         DB::commit();
         return true;

@@ -119,11 +119,11 @@ class UserWithdrawOrderRepository
         $model->status = 5;
         $model->real_fee = $model->fee;
         $model->external_order_id = $externalOrderId;
-        $model->remark = $remark;
+        $model->remark = $remark ?: '';
         $model->save();
 
         // 提现
-        Asset::withdraw($model->fee, 22, $model->no, '自动提现成功', $model->user_id, Auth::id(), $model);
+        Asset::withdraw($model->fee, 21, $model->no, '线下提现成功', $model->user_id, Auth::id(), $model);
 
         DB::commit();
         return true;

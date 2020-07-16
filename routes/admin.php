@@ -56,22 +56,23 @@ Route::namespace('Finance')->prefix('finance')->group(function () {
     Route::get('user-amount-flow', 'UserAmountFlowController@index')->name('admin.finance.user-amount-flow.index');
     Route::get('user-amount-flow/statistics', 'UserAmountFlowController@statistics')->name('admin.finance.user-amount-flow.statistics');
 
-    // 用户提现管理
-    Route::get('user-withdraw', 'UserWithdrawController@index')->name('admin.finance.user-withdraw.index');
-    Route::post('user-withdraw/{id}/department', 'UserWithdrawController@department')->name('admin.finance.user-withdraw.department');
-    Route::post('user-withdraw/{id}/finance', 'UserWithdrawController@finance')->name('admin.finance.user-withdraw.finance');
-    Route::post('user-withdraw/{id}/refuse', 'UserWithdrawController@refuse')->name('admin.finance.user-withdraw.refuse');
-    Route::post('user-withdraw/{id}/order-id-backfill', 'UserWithdrawController@orderIdBackfill')->name('admin.finance.user-withdraw.order-id-backfill');
-    Route::post('user-withdraw/{id}/auto-transfer', 'UserWithdrawController@autoTransfer')->name('admin.finance.user-withdraw.auto-transfer');
-    Route::post('user-withdraw/{id}/fulu', 'UserWithdrawController@fulu')->name('admin.finance.user-withdraw.fulu');
-    Route::get('user-withdraw/{id}/fulu-info', 'UserWithdrawController@fuluInfo')->name('admin.finance.user-withdraw.fulu-info');
-
     // 用户加款管理
     Route::get('user-add-money', 'UserAddMoneyController@index')->name('admin.finance.user-add-money.index');
     Route::post('user-add-money', 'UserAddMoneyController@store')->name('admin.finance.user-add-money.store');
     Route::post('user-add-money/agree/{id}', 'UserAddMoneyController@agree')->name('admin.finance.user-add-money.agree');
     Route::post('user-add-money/refuse/{id}', 'UserAddMoneyController@refuse')->name('admin.finance.user-add-money.refuse');
     Route::get('user-add-money/export', 'UserAddMoneyController@export')->name('admin.finance.user-add-money.export');
+
+    // 用户提现管理
+    Route::get('user-withdraw', 'UserWithdrawController@index')->name('admin.finance.user-withdraw.index');
+    Route::post('user-withdraw/{id}/department', 'UserWithdrawController@department')->name('admin.finance.user-withdraw.department');
+    Route::post('user-withdraw/{id}/finance', 'UserWithdrawController@finance')->name('admin.finance.user-withdraw.finance');
+    Route::post('user-withdraw/{id}/refuse', 'UserWithdrawController@refuse')->name('admin.finance.user-withdraw.refuse');
+    Route::post('user-withdraw/{id}/offline-pay', 'UserWithdrawController@offlinePay')->name('admin.finance.user-withdraw.offline-pay');
+
+    // 结算账号管理
+    Route::get('user-settlement-account', 'UserSettlementAccountController@index')->name('admin.finance.user-settlement-account.index');
+    Route::delete('user-settlement-account/{id}', 'UserSettlementAccountController@destroy')->name('admin.finance.user-settlement-account.destroy');
 
     // 人工扣款管理
     Route::get('deduct-money', 'DeductMoneyController@index')->name('admin.finance.deduct-money.index');

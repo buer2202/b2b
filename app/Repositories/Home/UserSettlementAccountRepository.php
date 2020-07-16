@@ -4,17 +4,13 @@ namespace App\Repositories\Home;
 use App\Exceptions\CustomException;
 use App\Models\UserSettlementAccount;
 use Auth;
+use Exception;
 
 class UserSettlementAccountRepository
 {
-    public static function getList($status = '')
+    public static function getList()
     {
-        $dataList = UserSettlementAccount::where('user_id', Auth::user()->id)
-            ->when($status !== '', function ($query) use ($status) {
-                return $query->where('status', $status);
-            })
-            ->get();
-
+        $dataList = UserSettlementAccount::where('user_id', Auth::user()->id)->get();
         return $dataList;
     }
 
@@ -34,8 +30,10 @@ class UserSettlementAccountRepository
         $model->status   = 1;
         $model->acc_type = $accType;
 
-        if (!$model->save()) {
-            throw new CustomException('数据创建失败');
+        try {
+            $model->save();
+        } catch (Exception $e) {
+            throw new CustomException('添加失败');
         }
 
         return true;

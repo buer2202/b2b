@@ -19,7 +19,7 @@ class WithdrawController extends Controller
     public function index(Request $request)
     {
         $dataList = UserWithdrawOrderRepository::getList($request->time_start, $request->time_end, $request->status);
-        $settlementAccount = UserSettlementAccountRepository::getList(1);
+        $settlementAccount = UserSettlementAccountRepository::getList();
         $assetWithdrawStatus = config('asset.withdraw.status');
         return view('home.finance.withdraw.index', compact('dataList', 'assetWithdrawStatus', 'settlementAccount'));
     }

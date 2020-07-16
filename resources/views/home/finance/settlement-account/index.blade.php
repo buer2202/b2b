@@ -11,7 +11,6 @@
             <th>收/付款账号</th>
             <th>开户人姓名</th>
             <th>对公/对私</th>
-            <th>状态</th>
             <th>创建时间</th>
         </tr>
     </thead>
@@ -23,7 +22,6 @@
                 <td>{{ $data->account }}</td>
                 <td>{{ $data->name }}</td>
                 <td>{{ $config['acc_type'][$data->acc_type] }}</td>
-                <td>{{ $data->status ? '正常' : '停用' }}</td>
                 <td>{{ $data->created_at }}</td>
             </tr>
         @empty

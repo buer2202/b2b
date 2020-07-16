@@ -21,12 +21,11 @@ class CreateUserSettlementAccountsTable extends Migration
             $table->string('account', 25)->comment('收款账号');
             $table->string('name', 50)->comment('收款人姓名');
             $table->tinyInteger('acc_type')->default(2)->comment('对公对私：1.对私 2.对公');
-            $table->tinyInteger('status')->default(1)->comment('状态：1.申请 2.正常 3.禁用');
             $table->timestamps();
             $table->softDeletes();
 
             $table->index('user_id');
-            $table->index('account');
+            $table->unique('account');
         });
     }
 

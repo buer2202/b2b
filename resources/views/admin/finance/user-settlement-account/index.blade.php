@@ -22,23 +22,21 @@
         <th>托管单位</th>
         <th>收款账号</th>
         <th>收款人姓名</th>
-        <th>状态</th>
         <th>创建时间</th>
         <th>最后更新</th>
-        <th style="width: 150px">操作</th>
+        <th>操作</th>
     </tr>
     @foreach ($dataList as $data)
         <tr>
             <td>{{ $data->user_id }}</td>
-            <td>{{ $userTradingAccount['type'][$data->type] }}</td>
+            <td>{{ $config['type'][$data->type] }}</td>
             <td>{{ $data->trustee }}</td>
             <td>{{ $data->account }}</td>
             <td>{{ $data->name }}</td>
-            <td>{{ $userTradingAccount['status'][$data->status] }}</td>
             <td>{{ $data->created_at }}</td>
             <td>{{ $data->updated_at }}</td>
             <td>
-                <button class="btn btn-info btn-xs destroy" data-url="{{ route('admin.finance.trading-account.destroy', $data->id) }}">删除</button>
+                <button class="btn btn-info btn-xs destroy" data-url="{{ route('admin.finance.user-settlement-account.destroy', $data->id) }}">删除</button>
             </td>
         </tr>
     @endforeach

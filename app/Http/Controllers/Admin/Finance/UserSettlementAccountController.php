@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin\Finance;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Repositories\Admin\UserTradingAccountRepository;
+use App\Repositories\Admin\UserSettlementAccountRepository;
 use App\Exceptions\CustomException;
 
 // 结算账号
-class TradingAccountController extends Controller
+class UserSettlementAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,9 @@ class TradingAccountController extends Controller
      */
     public function index(Request $request)
     {
-        $dataList = UserTradingAccountRepository::getList($request->user_id, $request->bank_card_no);
-        $userTradingAccount = config('user.trading_account');
-
-        return view('admin.finance.trading-account.index', compact('dataList', 'userTradingAccount'));
+        $dataList = UserSettlementAccountRepository::getList($request->user_id, $request->bank_card_no);
+        $config = config('asset.settlement_account');
+        return view('admin.finance.user-settlement-account.index', compact('dataList', 'config'));
     }
 
     /**
@@ -32,7 +31,7 @@ class TradingAccountController extends Controller
     public function destroy($id)
     {
         try {
-            UserTradingAccountRepository::destroy($id);
+            UserSettlementAccountRepository::destroy($id);
         }
         catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());

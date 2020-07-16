@@ -74,7 +74,7 @@ class DeductMoneyOrderRepository
         }
 
         // 扣款
-        Asset::consume($model->fee, 57, $model->no, '手动扣款', $model->user_id, Auth::user()->id, $model);
+        Asset::consume($model->fee, 51, $model->no, '手动扣款', $model->user_id, Auth::user()->id, $model);
 
         DB::commit();
         return true;

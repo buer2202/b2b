@@ -74,7 +74,7 @@ class RefundOrderRepository
         }
 
         // 退款
-        Asset::refund($model->fee, 64, $model->no, '手动退款', $model->user_id, Auth::user()->id, $model);
+        Asset::refund($model->fee, 61, $model->no, '手动退款', $model->user_id, Auth::user()->id, $model);
 
         DB::commit();
         return true;

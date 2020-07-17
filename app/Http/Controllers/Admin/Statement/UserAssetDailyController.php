@@ -19,13 +19,7 @@ class UserAssetDailyController extends Controller
         $userId    = $request->user_id;
         $dateStart = $request->start_time;
         $dateEnd   = $request->end_time;
-
-        if ($request->export == 1) {
-            $userAssetDailyRepository->export($userId, $dateStart, $dateEnd);
-        }
-
         $dataList = UserAssetDailyRepository::getList($userId, $dateStart, $dateEnd);
-
         return view('admin.statement.user-asset-daily.index', compact('dataList', 'userId', 'dateStart', 'dateEnd'));
     }
 

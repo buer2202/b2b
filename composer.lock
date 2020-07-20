@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "buer/asset",
-            "version": "2.3.7",
+            "version": "2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/buer2202/asset.git",
-                "reference": "12d0c918eb585b06504b6c9c4155a4f0dd56783c"
+                "reference": "e2fe97d430bd8773e9ca3c52121f30bf358e2e91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/buer2202/asset/zipball/12d0c918eb585b06504b6c9c4155a4f0dd56783c",
-                "reference": "12d0c918eb585b06504b6c9c4155a4f0dd56783c",
+                "url": "https://api.github.com/repos/buer2202/asset/zipball/e2fe97d430bd8773e9ca3c52121f30bf358e2e91",
+                "reference": "e2fe97d430bd8773e9ca3c52121f30bf358e2e91",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -53,7 +53,7 @@
                 }
             ],
             "description": "Finance packagist",
-            "time": "2019-05-09T06:28:10+00:00"
+            "time": "2020-07-20T07:06:12+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

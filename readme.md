@@ -15,3 +15,4 @@ B2B框架，功能介绍：
 3. php artisan migrate --seed
 4. php artisan db:seed
 5. php artisan vendor:publish 拷贝Asset配置文件
+6. cp .env.example .env && php artisan key:generate

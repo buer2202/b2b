@@ -15,10 +15,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    // 平台ID，用来区分平台
-    'platform_id' => env('PLATFORM_ID', 'txjsq'),
+    // 平台ID，用来区分平台，以及生成WebSocket的组ID
+    'platform_id' => env('PLATFORM_ID', 'buer-b2b'),
+
     // WebSocket 服务地址
-    'ws_url' => env('WEBSOCKET_URL', 'ws://ws.com'),
+    'ws_url' => env('WEBSOCKET_URL', 'ws://localhost'),
 
     /*
     |--------------------------------------------------------------------------

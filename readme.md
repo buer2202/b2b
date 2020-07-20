@@ -10,7 +10,7 @@ B2B框架，功能介绍：
 数据：数据库迁移、数据填充。
 
 #### 安装步骤：
-1. 克隆代码
+1. git clone https://github.com/buer2202/b2b.git
 2. composer install
 3. cp .env.example .env && php artisan key:generate
 4. 配置数据库、redis、邮件相关参数。

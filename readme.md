@@ -12,7 +12,8 @@ B2B框架，功能介绍：
 #### 安装步骤：
 1. 克隆代码
 2. composer install
-3. php artisan migrate --seed
-4. php artisan db:seed
-5. php artisan vendor:publish 拷贝Asset配置文件
-6. cp .env.example .env && php artisan key:generate
+3. php artisan vendor:publish 拷贝Asset配置文件
+4. cp .env.example .env && php artisan key:generate
+5. 配置数据库、redis、邮件相关参数。
+6. php artisan migrate
+7. php artisan db:seed

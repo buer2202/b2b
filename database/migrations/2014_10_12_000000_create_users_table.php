@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email');
             $table->string('password');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(1)->comment('0.禁用 1.正常');
             $table->string('remark')->default('')->comment('备注');
             $table->string('secret_id', 100)->nullable()->default(null)->comment('API id');
             $table->string('secret_key', 500)->comment('API密钥');

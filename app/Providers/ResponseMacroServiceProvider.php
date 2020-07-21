@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\XML;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
 

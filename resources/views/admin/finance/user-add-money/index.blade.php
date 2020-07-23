@@ -4,12 +4,14 @@
 <form class="form-inline" id="data-form">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-        <input type="text" class="form-control" id="start-time" name="start_time" value="{{ Request::input('start_time') }}" placeholder="开始时间" readonly>
+        <input type="text" class="form-control" id="start-time" name="start_time"
+            value="{{ Request::input('start_time') }}" placeholder="开始时间" readonly>
     </div>
 
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-        <input type="text" class="form-control" id="end-time" name="end_time" value="{{ Request::input('end_time') }}" placeholder="结束时间" readonly>
+        <input type="text" class="form-control" id="end-time" name="end_time" value="{{ Request::input('end_time') }}"
+            placeholder="结束时间" readonly>
     </div>
 
     <div class="form-group">
@@ -27,7 +29,7 @@
         <select class="form-control" name="status">
             <option value="">全部</option>
             @foreach ($status['status'] as $key => $value)
-                <option value="{{ $key }}" {{ $key == Request::input('status') ? 'selected' : '' }}>{{ $value }}</option>
+            <option value="{{ $key }}" {{ $key == Request::input('status') ? 'selected' : '' }}>{{ $value }}</option>
             @endforeach
         </select>
     </div>
@@ -54,31 +56,35 @@
         <th width="100">操作</th>
     </tr>
     @forelse ($dataList as $data)
-        <tr>
-            <td>{{ $data->no }}</td>
-            <td>{{ $data->external_order_id }}</td>
-            <td>{{ $data->user_id }}</td>
-            <td>{{ $status['pay_type'][$data->pay_type] }}</td>
-            <td>{{ $data->receive_account }}</td>
-            <td>{{ $data->fee }}</td>
-            <td>{{ $status['status'][$data->status] }}</td>
-            <td>{{ $data->remark }}</td>
-            <td>{{ $data->created_by }}</td>
-            <td>{{ $data->created_at }}</td>
-            <td>{{ $data->auditd_by ?: '--' }}</td>
-            <td>{{ $data->auditd_at ?: '--' }}</td>
-            <td>{{ $data->updated_at }}</td>
-            <td>
-                @if ($data->status == 1)
-                    <button class="btn btn-success btn-xs agree" data-url="{{ route('admin.finance.user-add-money.agree', $data->id) }}">审核</button>
-                    <button class="btn btn-danger btn-xs refuse" data-url="{{ route('admin.finance.user-add-money.refuse', $data->id) }}">拒绝</button>
-                @else
-                    --
-                @endif
-            </td>
-        </tr>
+    <tr>
+        <td>{{ $data->no }}</td>
+        <td>{{ $data->external_order_id }}</td>
+        <td>{{ $data->user_id }}</td>
+        <td>{{ $status['pay_type'][$data->pay_type] }}</td>
+        <td>{{ $data->receive_account }}</td>
+        <td>{{ $data->fee }}</td>
+        <td>{{ $status['status'][$data->status] }}</td>
+        <td>{{ $data->remark }}</td>
+        <td>{{ $data->created_by }}</td>
+        <td>{{ $data->created_at }}</td>
+        <td>{{ $data->auditd_by ?: '--' }}</td>
+        <td>{{ $data->auditd_at ?: '--' }}</td>
+        <td>{{ $data->updated_at }}</td>
+        <td>
+            @if ($data->status == 1)
+            <button class="btn btn-success btn-xs agree"
+                data-url="{{ route('admin.finance.user-add-money.agree', $data->id) }}">审核</button>
+            <button class="btn btn-danger btn-xs refuse"
+                data-url="{{ route('admin.finance.user-add-money.refuse', $data->id) }}">拒绝</button>
+            @else
+            --
+            @endif
+        </td>
+    </tr>
     @empty
-        <tr><td colspan="99">暂无数据</td></tr>
+    <tr>
+        <td colspan="99">暂无数据</td>
+    </tr>
     @endforelse
 </table>
 
@@ -89,11 +95,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" id="data-form" method="">
+                <form class="form-horizontal">
                     <div class="form-group">
                         <label for="user-id" class="col-sm-2 control-label">用户ID</label>
                         <div class="col-sm-10">
@@ -128,74 +135,38 @@
 
 @section('js')
 <script>
-var option = {
-    language: 'zh-CN',
-    format: 'yyyy-mm-dd',
-    minView: 2,
-    autoclose: true,
-    todayBtn: true,
-    todayHighlight: true
-};
+    var option = {
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        minView: 2,
+        autoclose: true,
+        todayBtn: true,
+        todayHighlight: true
+    };
 
-$('#start-time').datetimepicker(option);
-$('#end-time').datetimepicker(option);
+    $('#start-time').datetimepicker(option);
+    $('#end-time').datetimepicker(option);
 
-$('#export-flow').click(function () {
-    var url = "{{ route('admin.finance.user-add-money.export') }}?" + $('#data-form').serialize();
-    window.location.href = url;
-});
+    $('#export-flow').click(function () {
+        var url = "{{ route('admin.finance.user-add-money.export') }}?" + $('#data-form').serialize();
+        window.location.href = url;
+    });
 
-// 加款
-$('#submit-data-form').click(function () {
-    var load = layer.load({shade: 0.2});
-
-    $.ajax({
-        url: "{{ route('admin.finance.user-add-money.store') }}",
-        type: 'POST',
-        dataType: 'json',
-        data: {
+    // 加款
+    $('#submit-data-form').click(function () {
+        buer_post("{{ route('admin.finance.user-add-money.store') }}", {
             user_id: $('#user-id').val(),
             fee: $('#fee').val(),
             remark: $('#remark').val()
-        },
-        error: function (data) {
-            layer.close(load);
-            errors = data.responseJSON.errors;
-            for (key in errors) {
-                layer.alert(errors[key][0], {icon: 5});
-                return false;
-            }
-        },
-        success: function (data) {
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                layer.close(load);
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+        });
     });
-});
 
-// 同意, 拒绝
-$('.agree, .refuse').click(function () {
-    var url = $(this).data('url');
-
-    layer.confirm('再次确认', function (data) {
-        var loading = layer.load(0, {shade: 0.3});
-
-        $.post(url, function (data) {
-            layer.close(loading);
-
-            if (data.status == 1) {
-                layer.alert('操作成功', function () {
-                    window.location.reload();
-                });
-            } else {
-                layer.alert(data.message, {icon: 5});
-            }
-        }, 'json');
+    // 同意, 拒绝
+    $('.agree, .refuse').click(function () {
+        var url = $(this).data('url');
+        layer.confirm('再次确认', function (data) {
+            buer_post(url);
+        });
     });
-});
 </script>
 @endsection

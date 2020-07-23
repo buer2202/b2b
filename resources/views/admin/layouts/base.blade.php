@@ -144,7 +144,7 @@
 <script src="/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="/layer/layer.js"></script>
-<script src="/layer/buer_ajax.js"></script>
+<script src="/js/buer_post.js"></script>
 <script>
     $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 

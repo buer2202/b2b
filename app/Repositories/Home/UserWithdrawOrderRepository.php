@@ -51,18 +51,17 @@ class UserWithdrawOrderRepository
 
         // 创建提现单
         $withdraw = new UserWithdrawOrder;
-        $withdraw->no      = $withdrawNo;
-        $withdraw->status  = 1;
-        $withdraw->fee     = $fee;
-        $withdraw->user_id = $userId;
-        $withdraw->remark  = '用户申请提现';
-        $withdraw->from_account  = '';
+        $withdraw->no                   = $withdrawNo;
+        $withdraw->status               = 1;
+        $withdraw->fee                  = $fee;
+        $withdraw->user_id              = $userId;
+        $withdraw->remark               = '用户申请提现';
+        $withdraw->from_account         = '';
         $withdraw->trustee              = $userSettlementAccount->trustee;
         $withdraw->receive_account      = $userSettlementAccount->account;
         $withdraw->receive_account_type = $userSettlementAccount->type;
         $withdraw->name                 = $userSettlementAccount->name;
-        $withdraw->acc_type             = $userSettlementAccount->acc_type;
-
+        $withdraw->acc_type             =  $userSettlementAccount->acc_type;
         if (!$withdraw->save()) {
             DB::rollback();
             throw new CustomException('申请失败');

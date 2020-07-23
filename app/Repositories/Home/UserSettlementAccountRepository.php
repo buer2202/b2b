@@ -27,12 +27,12 @@ class UserSettlementAccountRepository
         $model->trustee  = $trustee;
         $model->account  = $account;
         $model->name     = $name;
-        $model->status   = 1;
         $model->acc_type = $accType;
 
         try {
             $model->save();
         } catch (Exception $e) {
+            my_log('db-error', $e->getMessage());
             throw new CustomException('添加失败');
         }
 

@@ -17,7 +17,7 @@
         <select class="form-control" name="status">
             <option value="">全部</option>
             @foreach ($config['withdraw']['status'] as $key => $value)
-                <option value="{{ $key }}" {{ $key == Request::input('status') ? 'selected' : '' }}>{{ $value }}</option>
+            <option value="{{ $key }}" {{ $key == Request::input('status') ? 'selected' : '' }}>{{ $value }}</option>
             @endforeach
         </select>
     </div>
@@ -45,41 +45,46 @@
         <th style="width: 150px">操作</th>
     </tr>
     @foreach ($dataList as $data)
-        <tr>
-            <td>{{ $data->no }}</td>
-            <td>{{ $data->user_id }}</td>
-            <td>{{ $data->trustee }}</td>
-            <td>{{ $data->receive_account }}</td>
-            <td>{{ $config['settlement_account']['type'][$data->receive_account_type] }}</td>
-            <td>{{ $config['settlement_account']['acc_type'][$data->acc_type] }}</td>
-            <td>{{ $data->name }}</td>
-            <td>{{ (float)$data->fee }}</td>
-            <td>{{ $config['withdraw']['status'][$data->status] }}</td>
-            <td>{{ $data->remark }}</td>
-            <td>{{ $config['withdraw']['pay_type'][$data->pay_type] }}</td>
-            <td>{{ $data->external_order_id ?: '--' }}</td>
-            <td>{{ $data->real_fee ? (float)$data->real_fee : '--' }}</td>
-            <td>{{ $data->created_at }}</td>
-            <td>{{ $data->updated_at }}</td>
-            <td>
-                @switch ($data->status)
-                    @case (1)
-                        <button class="btn btn-success btn-xs audit" data-url="{{ route('admin.finance.user-withdraw.department', $data->id) }}">部门审核</button>
-                        @break
-                    @case (2)
-                        <button class="btn btn-warning btn-xs audit" data-url="{{ route('admin.finance.user-withdraw.finance', $data->id) }}">财务审核</button>
-                        <button class="btn btn-danger btn-xs audit" data-url="{{ route('admin.finance.user-withdraw.refuse', $data->id) }}">拒绝</button>
-                        @break
-                    @case (3)
-                        <button class="btn btn-warning btn-xs offline-withdraw" data-url="{{ route('admin.finance.user-withdraw.offline-pay', $data->id) }}">线下提现</button>
-                        <button class="btn btn-danger btn-xs audit" data-url="{{ route('admin.finance.user-withdraw.refuse', $data->id) }}">拒绝</button>
-                        @break
-                    @default
-                        --
-                        @break
-                @endswitch
-            </td>
-        </tr>
+    <tr>
+        <td>{{ $data->no }}</td>
+        <td>{{ $data->user_id }}</td>
+        <td>{{ $data->trustee }}</td>
+        <td>{{ $data->receive_account }}</td>
+        <td>{{ $config['settlement_account']['type'][$data->receive_account_type] }}</td>
+        <td>{{ $config['settlement_account']['acc_type'][$data->acc_type] }}</td>
+        <td>{{ $data->name }}</td>
+        <td>{{ (float)$data->fee }}</td>
+        <td>{{ $config['withdraw']['status'][$data->status] }}</td>
+        <td>{{ $data->remark }}</td>
+        <td>{{ $config['withdraw']['pay_type'][$data->pay_type] }}</td>
+        <td>{{ $data->external_order_id ?: '--' }}</td>
+        <td>{{ $data->real_fee ? (float)$data->real_fee : '--' }}</td>
+        <td>{{ $data->created_at }}</td>
+        <td>{{ $data->updated_at }}</td>
+        <td>
+            @switch ($data->status)
+            @case (1)
+            <button class="btn btn-success btn-xs audit"
+                data-url="{{ route('admin.finance.user-withdraw.department', $data->id) }}">部门审核</button>
+            @break
+            @case (2)
+            <button class="btn btn-warning btn-xs audit"
+                data-url="{{ route('admin.finance.user-withdraw.finance', $data->id) }}">财务审核</button>
+            <button class="btn btn-danger btn-xs audit"
+                data-url="{{ route('admin.finance.user-withdraw.refuse', $data->id) }}">拒绝</button>
+            @break
+            @case (3)
+            <button class="btn btn-warning btn-xs offline-withdraw"
+                data-url="{{ route('admin.finance.user-withdraw.offline-pay', $data->id) }}">线下提现</button>
+            <button class="btn btn-danger btn-xs audit"
+                data-url="{{ route('admin.finance.user-withdraw.refuse', $data->id) }}">拒绝</button>
+            @break
+            @default
+            --
+            @break
+            @endswitch
+        </td>
+    </tr>
     @endforeach
 </table>
 
@@ -105,72 +110,34 @@
 
 @section('js')
 <script>
-// 审核
-$('.audit').click(function () {
-    var url = $(this).data('url');
-
-    layer.confirm('再次确认', function (data) {
-        var loading = layer.load(0, {shade: 0.3});
-
-        $.post(url, function (data) {
-            layer.close(loading);
-
-            if (data.status == 1) {
-                layer.alert('操作成功', function () {
-                    window.location.reload();
-                });
-            } else {
-                layer.alert(data.message, {icon: 5});
-            }
-        }, 'json');
+    // 审核
+    $('.audit').click(function () {
+        var url = $(this).data('url');
+        layer.confirm('再次确认', function (data) {
+            buer_post(url);
+        });
     });
-});
 
-// 线下提现
-$('.offline-withdraw').click(function () {
-    var url = $(this).data('url');
-    $('#offline-withdraw-url').val(url);
+    // 线下提现
+    $('.offline-withdraw').click(function () {
+        var url = $(this).data('url');
+        $('#offline-withdraw-url').val(url);
 
-    layer.open({
-        type: 1,
-        shade: false,
-        title: '填写提现信息',
-        area: ['420px', 'auto'],
-        content: $('#offline-withdraw')
+        layer.open({
+            type: 1,
+            shade: false,
+            title: '填写提现信息',
+            area: ['420px', 'auto'],
+            content: $('#offline-withdraw')
+        });
     });
-});
 
-$('#submit-offline-withdraw').click(function () {
-    var loading = layer.load(0, {shade: 0.3});
-
-    $.ajax({
-        url: $('#offline-withdraw-url').val(),
-        type: "POST",
-        dataType: "json",
-        data: {
+    $('#submit-offline-withdraw').click(function () {
+        buer_post($('#offline-withdraw-url').val(), {
             from_account: $('#from_account').val(),
             external_order_id: $('#external_order_id').val(),
             remark: $('#fill-remark').val()
-        },
-        error: function (data) {
-            layer.close(loading);
-            var responseJSON = data.responseJSON.errors;
-            for (var key in responseJSON) {
-                layer.msg(responseJSON[key][0]);
-                break;
-            }
-        },
-        success: function (data) {
-            layer.close(loading);
-            if (data.status == 1) {
-                layer.alert('操作成功', {icon:6}, function () {
-                    parent.location.reload();
-                });
-            } else {
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+        });
     });
-});
 </script>
 @endsection

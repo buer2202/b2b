@@ -34,7 +34,7 @@ class AdministratorController extends Controller
     {
         $this->validate($request, [
             'name'     => 'bail|required|string',
-            'password' => 'bail|required|string|min:6',
+            'password' => 'bail|required|string|min:6|max:20',
         ]);
 
         try {
@@ -56,7 +56,7 @@ class AdministratorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, ['password' => 'bail|required|string|min:6']);
+        $this->validate($request, ['password' => 'bail|required|string|min:6|max:20']);
 
         try {
             AdminRepository::update($id, bcrypt($request->password));

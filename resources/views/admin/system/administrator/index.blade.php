@@ -13,7 +13,8 @@
     </div>
 
     <button type="submit" class="btn btn-primary">查询</button>
-    <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-new-modal">新增</button>
+    <button type="button" class="btn btn-success" id="add-new" data-toggle="modal"
+        data-target="#add-new-modal">新增</button>
 </form>
 
 <table class="table table-striped table-condensed m-t">
@@ -26,23 +27,27 @@
         <th>操作</th>
     </tr>
     @foreach ($dataList as $data)
-        <tr>
-            <td>{{ $data->id }}</td>
-            <td>{{ $data->name }}</td>
-            <td>{{ $data->deleted_at ? '禁用' : '正常' }}</td>
-            <td>{{ $data->created_at }}</td>
-            <td>{{ $data->updated_at }}</td>
-            <td>
-                @if ($data->deleted_at)
-                    <button class="btn btn-success btn-xs restore" data-url="{{ route('admin.system.administrator.restore', $data->id) }}">启用</button>
-                @else
-                    <button class="btn btn-danger btn-xs destroy" data-url="{{ route('admin.system.administrator.destroy', $data->id) }}">禁用</button>
-                @endif
+    <tr>
+        <td>{{ $data->id }}</td>
+        <td>{{ $data->name }}</td>
+        <td>{{ $data->deleted_at ? '禁用' : '正常' }}</td>
+        <td>{{ $data->created_at }}</td>
+        <td>{{ $data->updated_at }}</td>
+        <td>
+            @if ($data->deleted_at)
+            <button class="btn btn-success btn-xs restore"
+                data-url="{{ route('admin.system.administrator.restore', $data->id) }}">启用</button>
+            @else
+            <button class="btn btn-danger btn-xs destroy"
+                data-url="{{ route('admin.system.administrator.destroy', $data->id) }}">禁用</button>
+            @endif
 
-                <button class="btn btn-info btn-xs edit" data-url="{{ route('admin.system.administrator.update', $data->id) }}">密码</button>
-                <button class="btn btn-warning btn-xs role" data-url="{{ route('admin.system.administrator.update-roles', $data->id) }}">角色</button>
-            </td>
-        </tr>
+            <button class="btn btn-info btn-xs edit"
+                data-url="{{ route('admin.system.administrator.update', $data->id) }}">密码</button>
+            <button class="btn btn-warning btn-xs role"
+                data-url="{{ route('admin.system.administrator.update-roles', $data->id) }}">角色</button>
+        </td>
+    </tr>
     @endforeach
 </table>
 
@@ -53,7 +58,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="add-new-label"></h4>
             </div>
             <div class="modal-body" style="padding-right: 60px;">
@@ -87,7 +93,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
@@ -95,12 +102,12 @@
                     <div class="list-group">
                         <p class="list-group-item list-group-item list-group-item-success">角色列表</p>
                         @foreach ($roles as $role)
-                            <p class="list-group-item">
-                                <label>
-                                    <input type="checkbox" name="role_ids[]" id="{{ $role->id }}" value="{{ $role->id }}" />
-                                    {{ $role->name }}
-                                </label>
-                            </p>
+                        <p class="list-group-item">
+                            <label>
+                                <input type="checkbox" name="role_ids[]" id="{{ $role->id }}" value="{{ $role->id }}" />
+                                {{ $role->name }}
+                            </label>
+                        </p>
                         @endforeach
                     </div>
                 </form>
@@ -116,161 +123,69 @@
 
 @section('js')
 <script>
-// 提交
-$('#submit-admin').click(function () {
-    var load = layer.load(0, {shade: 0.2});
-
-    $.ajax({
-        type: 'POST',
-        url: "{{ route('admin.system.administrator.store') }}",
-        dataType: 'json',
-        data: {
+    // 提交
+    $('#submit-admin').click(function () {
+        buer_post("{{ route('admin.system.administrator.store') }}", {
             name: $('#name').val(),
             password: $('#password').val()
-        },
-        error: function (data) {
-            layer.close(load);
-            errors = data.responseJSON.errors;
-            for (key in errors) {
-                layer.alert(errors[key][0], {icon: 5});
-                return false;
-            }
-        },
-        success: function (data) {
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                layer.close(load);
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+        }, false);
     });
-});
 
-// 禁用
-$('.destroy').click(function () {
-    var load = layer.load(0, {shade: 0.2});
-
-    $.ajax({
-        url: $(this).data('url'),
-        type: 'POST',
-        dataType: 'json',
-        data: {_method: 'DELETE'},
-        error: function (data) {
-            layer.close(load);
-            errors = data.responseJSON.errors;
-            for (key in errors) {
-                layer.alert(errors[key][0], {icon: 5});
-                return false;
-            }
-        },
-        success: function (data) {
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                layer.close(load);
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+    // 禁用
+    $('.destroy').click(function () {
+        buer_post($(this).data('url'), {_method: 'DELETE'}, false);
     });
-});
 
-// 启用
-$('.restore').click(function () {
-    var load = layer.load(0, {shade: 0.2});
-
-    $.ajax({
-        url: $(this).data('url'),
-        type: 'POST',
-        dataType: 'json',
-        data: {_method: 'PATCH'},
-        error: function (data) {
-            layer.close(load);
-            errors = data.responseJSON.errors;
-            for (key in errors) {
-                layer.alert(errors[key][0], {icon: 5});
-                return false;
-            }
-        },
-        success: function (data) {
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                layer.close(load);
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+    // 启用
+    $('.restore').click(function () {
+        buer_post($(this).data('url'), {_method: 'PATCH'}, false);
     });
-});
 
-// 修改密码
-$('.edit').click(function () {
-    var url = $(this).data('url');
+    // 修改密码
+    $('.edit').click(function () {
+        var url = $(this).data('url');
 
-    layer.prompt({title: '请输入新密码'}, function (value, index, elem) {
-        layer.close(index);
-
-        var load = layer.load(0, {shade: 0.2});
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                password: value,
-                _method: 'PATCH'
-            },
-            error: function (data) {
-                layer.close(load);
-                errors = data.responseJSON.errors;
-                for (key in errors) {
-                    layer.alert(errors[key][0], {icon: 5});
-                    return false;
-                }
-            },
-            success: function (data) {
-                layer.close(load);
-                if (data.status == 1) {
-                    layer.msg('修改成功');
-                } else {
-                    layer.alert(data.message, {icon: 5});
-                }
-            }
+        layer.prompt({
+            title: '请输入新密码'
+        }, function (value, index, elem) {
+            layer.close(index);
+            buer_post(url, {password: value, _method: 'PATCH'});
         });
     });
-});
 
-// 角色
-$('.role').click(function () {
-    $("#roles-form input[type='checkbox']").prop("checked", false); // 全不选
-    $('#myModalLabel').text($(this).parent().siblings('.email').text());
-    $('#roles-form').attr('action', $(this).data('url'));
+    // 角色
+    $('.role').click(function () {
+        $("#roles-form input[type='checkbox']").prop("checked", false); // 全不选
+        $('#myModalLabel').text($(this).parent().siblings('.email').text());
+        $('#roles-form').attr('action', $(this).data('url'));
 
-    $.get($(this).data('url'), function (data) {
-        var roleData = data.contents;
-        if(data.contents) {
-            for (var i=0; i<roleData.length; i++) {
-                $("#" + roleData[i]).prop("checked", true);
-            };
-        }
+        $.get($(this).data('url'), function (data) {
+            var roleData = data.contents;
+            if (data.contents) {
+                for (var i = 0; i < roleData.length; i++) {
+                    $("#" + roleData[i]).prop("checked", true);
+                };
+            }
 
-        $('#myModal').modal();
-    }, 'json');
-});
+            $('#myModal').modal();
+        }, 'json');
+    });
 
-// 角色修改
-$('#submit-data-form').click(function () {
-    var load = layer.load(0, {shade: 0.2});
+    // 角色修改
+    $('#submit-data-form').click(function () {
+        var load = layer.load(0, {
+            shade: 0.2
+        });
 
-    $.post($('#roles-form').attr('action'), $('#roles-form').serialize(), function (data) {
-        layer.close(load);
+        $.post($('#roles-form').attr('action'), $('#roles-form').serialize(), function (data) {
+            layer.close(load);
 
-        if (data.status == 1) {
-            layer.msg('操作成功');
-        } else {
-            layer.msg(data.message);
-        }
-    }, 'json');
-});
+            if (data.status == 1) {
+                layer.msg('操作成功');
+            } else {
+                layer.msg(data.message);
+            }
+        }, 'json');
+    });
 </script>
 @endsection

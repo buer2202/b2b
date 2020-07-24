@@ -119,7 +119,7 @@
             user_id: $('#user-id').val(),
             fee: $('#fee').val(),
             remark: $('#remark').val()
-        });
+        }, false);
     });
 
     // 同意, 拒绝

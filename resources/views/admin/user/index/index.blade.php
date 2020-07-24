@@ -67,10 +67,13 @@
         <td>{{ $data->updated_at }}</td>
         <td>
             @if ($data->parent_id == 0)
-            <button class="btn btn-success btn-xs remark" data-url="{{ route('admin.user.index.remark', $data->id) }}">备注</button>
+            <button class="btn btn-success btn-xs remark"
+                data-url="{{ route('admin.user.index.remark', $data->id) }}">备注</button>
             @endif
-            <button class="btn btn-warning btn-xs role" data-url="{{ route('admin.user.index.update-roles', $data->id) }}">角色</button>
-            <button class="btn btn-danger btn-xs api-secret" data-url="{{ route('admin.user.index.api-secret', $data->id) }}">密钥</button>
+            <button class="btn btn-warning btn-xs role"
+                data-url="{{ route('admin.user.index.update-roles', $data->id) }}">角色</button>
+            <button class="btn btn-danger btn-xs api-secret"
+                data-url="{{ route('admin.user.index.api-secret', $data->id) }}">密钥</button>
         </td>
     </tr>
     @endforeach
@@ -83,7 +86,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
@@ -91,12 +95,12 @@
                     <div class="list-group">
                         <p class="list-group-item list-group-item list-group-item-success">角色列表</p>
                         @foreach ($roles as $role)
-                            <p class="list-group-item">
-                                <label>
-                                    <input type="checkbox" name="role_ids[]" id="{{ $role->id }}" value="{{ $role->id }}" />
-                                    {{ $role->name }}
-                                </label>
-                            </p>
+                        <p class="list-group-item">
+                            <label>
+                                <input type="checkbox" name="role_ids[]" id="{{ $role->id }}" value="{{ $role->id }}" />
+                                {{ $role->name }}
+                            </label>
+                        </p>
                         @endforeach
                     </div>
                 </form>
@@ -114,39 +118,10 @@
 <script>
     // 状态
     $('.status').click(function () {
-        var load = layer.load(0, {
-            shade: 0.3
-        });
-
-        $.ajax({
-            url: $(this).data('url'),
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                status: $(this).data('status'),
-                _method: 'PATCH'
-            },
-            error: function (data) {
-                layer.close(load);
-                errors = data.responseJSON.errors;
-                for (key in errors) {
-                    layer.alert(errors[key][0], {
-                        icon: 5
-                    });
-                    return false;
-                }
-            },
-            success: function (data) {
-                if (data.status == 1) {
-                    window.location.reload();
-                } else {
-                    layer.close(load);
-                    layer.alert(data.message, {
-                        icon: 5
-                    });
-                }
-            }
-        });
+        buer_post($(this).data('url'), {
+            status: $(this).data('status'),
+            _method: 'PATCH'
+        }, false);
     });
 
     // 详情
@@ -160,18 +135,6 @@
                 });
             }
         }, 'json');
-    });
-
-    // 实名
-    $('.certification').click(function () {
-        var url = $(this).data('url');
-
-        layer.open({
-            type: 2,
-            title: '实名认证',
-            area: ['600px', '90%'],
-            content: url
-        });
     });
 
     // 角色
@@ -194,11 +157,7 @@
 
     // 角色修改
     $('#submit-data-form').click(function () {
-        var load = layer.load(0, {
-            shade: 0.2
-        });
-
-        $.post($('#roles-form').attr('action'), $('#roles-form').serialize(), function (data) {
+        buer_post($('#roles-form').attr('action'), $('#roles-form').serialize(), null, function (data, load) {
             layer.close(load);
 
             if (data.status == 1) {
@@ -206,7 +165,7 @@
             } else {
                 layer.msg(data.message);
             }
-        }, 'json');
+        });
     });
 
     // 备注
@@ -216,44 +175,10 @@
         layer.prompt({
             title: '请输入备注'
         }, function (value) {
-            var load = layer.load(0, {
-                shade: 0.3
-            });
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    remark: value
-                },
-                error: function (data) {
-                    layer.close(load);
-                    errors = data.responseJSON.errors;
-                    for (key in errors) {
-                        layer.alert(errors[key][0], {
-                            icon: 5
-                        });
-                        return false;
-                    }
-                },
-                success: function (data) {
-                    if (data.status == 1) {
-                        layer.alert('操作成功', {
-                            icon: 6
-                        }, function () {
-                            window.location.reload();
-                        });
-                    } else {
-                        layer.close(load);
-                        layer.alert(data.message, {
-                            icon: 5
-                        });
-                    }
-                }
+            buer_post(url, {
+                remark: value
             });
         });
-
     });
 </script>
 @endsection

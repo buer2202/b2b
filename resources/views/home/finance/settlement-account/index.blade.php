@@ -16,16 +16,18 @@
     </thead>
     <tbody>
         @forelse ($dataList as $data)
-            <tr>
-                <td>{{ $config['type'][$data->type] }}</td>
-                <td>{{ $data->trustee }}</td>
-                <td>{{ $data->account }}</td>
-                <td>{{ $data->name }}</td>
-                <td>{{ $config['acc_type'][$data->acc_type] }}</td>
-                <td>{{ $data->created_at }}</td>
-            </tr>
+        <tr>
+            <td>{{ $config['type'][$data->type] }}</td>
+            <td>{{ $data->trustee }}</td>
+            <td>{{ $data->account }}</td>
+            <td>{{ $data->name }}</td>
+            <td>{{ $config['acc_type'][$data->acc_type] }}</td>
+            <td>{{ $data->created_at }}</td>
+        </tr>
         @empty
-            <tr><td colspan="99">暂无数据</td></tr>
+        <tr>
+            <td colspan="99">暂无数据</td>
+        </tr>
         @endforelse
     </tbody>
 </table>
@@ -78,63 +80,37 @@
 
 @section('js')
 <script>
-layui.use(['layer', 'form'], function() {
-    var layer = layui.layer;
-    var form  = layui.form;
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
 
-    $('#add').click(function () {
-        layer.open({
-            type: 1,
-            shade: false,
-            title: '填写账号信息',
-            area: ['420px', 'auto'],
-            content: $('#add-window')
+        $('#add').click(function () {
+            layer.open({
+                type: 1,
+                shade: false,
+                title: '填写账号信息',
+                area: ['420px', 'auto'],
+                content: $('#add-window')
+            });
         });
-    });
 
-    $('#add-submit').click(function () {
-        var load = layer.load({shade: 0.2});
-
-        $.ajax({
-            url: "{{ route('home.finance.settlement-account.store') }}",
-            type: 'post',
-            dataType: 'json',
-            data: {
+        $('#add-submit').click(function () {
+            buer_post("{{ route('home.finance.settlement-account.store') }}", {
                 type: $('#type').val(),
                 trustee: $('#trustee').val(),
                 account: $('#account').val(),
                 name: $('#name').val(),
                 acc_type: $('#acc-type').val()
-            },
-            error: function (data) {
-                layer.close(load);
-                errors = data.responseJSON.errors;
-                for (key in errors) {
-                    layer.alert(errors[key][0], {icon: 5});
-                    return false;
-                }
-            },
-            success: function (data) {
-                layer.close(load);
-                if (data.status == 1) {
-                    layer.alert('操作成功', {icon: 6}, function () {
-                        parent.location.reload();
-                    });
-                } else {
-                    layer.alert(data.message, {icon: 5});
-                }
+            });
+        });
+
+        form.on('select(type)', function (data) {
+            if (data.value == 1) {
+                $('#trustee').val('支付宝');
+            } else {
+                $('#trustee').val('');
             }
         });
     });
-
-    //
-    form.on('select(type)', function(data){
-        if (data.value == 1) {
-            $('#trustee').val('支付宝');
-        } else {
-            $('#trustee').val('');
-        }
-    });
-});
 </script>
 @endsection

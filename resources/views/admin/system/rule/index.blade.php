@@ -37,22 +37,23 @@
         <th>操作</th>
     </tr>
     @foreach ($dataList as $data)
-        <tr style="{{ $data->menu_show ? 'font-weight:bold;' : '' }}">
-            <td>{{ $data->id }}</td>
-            <td>{{ $data->name }}</td>
-            <td>{{ $data->title }}</td>
-            <td>{{ $GLOBALS['status'][$data->status] }}</td>
-            <td>{{ $data->group }}</td>
-            <td>{{ $data->group_name }}</td>
-            <td>{{ $GLOBALS['on_off'][$data->menu_show] }}</td>
-            <td>{{ $GLOBALS['on_off'][$data->menu_click] }}</td>
-            <td>{{ $data->sortord }}</td>
-            <td>{{ $data->created_at }}</td>
-            <td>{{ $data->updated_at }}</td>
-            <td>
-                <button class="btn btn-warning btn-xs edit" data-show="{{ route('admin.system.rule.show', $data->id) }}" data-update="{{ route('admin.system.rule.update', $data->id) }}">编辑</button>
-            </td>
-        </tr>
+    <tr style="{{ $data->menu_show ? 'font-weight:bold;' : '' }}">
+        <td>{{ $data->id }}</td>
+        <td>{{ $data->name }}</td>
+        <td>{{ $data->title }}</td>
+        <td>{{ $GLOBALS['status'][$data->status] }}</td>
+        <td>{{ $data->group }}</td>
+        <td>{{ $data->group_name }}</td>
+        <td>{{ $GLOBALS['on_off'][$data->menu_show] }}</td>
+        <td>{{ $GLOBALS['on_off'][$data->menu_click] }}</td>
+        <td>{{ $data->sortord }}</td>
+        <td>{{ $data->created_at }}</td>
+        <td>{{ $data->updated_at }}</td>
+        <td>
+            <button class="btn btn-warning btn-xs edit" data-show="{{ route('admin.system.rule.show', $data->id) }}"
+                data-update="{{ route('admin.system.rule.update', $data->id) }}">编辑</button>
+        </td>
+    </tr>
     @endforeach
 </table>
 
@@ -63,7 +64,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
@@ -71,7 +73,8 @@
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">权限</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="填路由命名。例: admin.system.rule.index" autocomplete="off">
+                            <input type="text" class="form-control" id="name"
+                                placeholder="填路由命名。例: admin.system.rule.index" autocomplete="off">
                         </div>
                     </div>
 
@@ -135,7 +138,8 @@
                     <div class="form-group">
                         <label for="sortord" class="col-sm-2 control-label">排序</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="sortord" placeholder="填整数，越小越靠前，可以为负数" autocomplete="off">
+                            <input type="text" class="form-control" id="sortord" placeholder="填整数，越小越靠前，可以为负数"
+                                autocomplete="off">
                         </div>
                     </div>
 
@@ -152,83 +156,60 @@
 
 @section('js')
 <script>
-// 新增
-$('#add-new').click(function () {
-    // 初始化表单
-    $('#myModalLabel').text('新增')
-    $('#name').val('');
-    $('#title').val('');
-    $('#group').val('');
-    $('#group_name').val('');
-    $('#sortord').val('');
-    $('[name="status"][value="1"]').prop('checked', true);
-    $('[name="menu_show"][value="0"]').prop('checked', true);
-    $('[name="menu_click"][value="0"]').prop('checked', true);
+    // 新增
+    $('#add-new').click(function () {
+        // 初始化表单
+        $('#myModalLabel').text('新增')
+        $('#name').val('');
+        $('#title').val('');
+        $('#group').val('');
+        $('#group_name').val('');
+        $('#sortord').val('');
+        $('[name="status"][value="1"]').prop('checked', true);
+        $('[name="menu_show"][value="0"]').prop('checked', true);
+        $('[name="menu_click"][value="0"]').prop('checked', true);
 
-    $('#data-form').attr('action', "{{ route('admin.system.rule.store') }}").attr('method', 'POST');
-    $('#myModal').modal();
-});
-
-// 编辑
-$('.edit').click(function () {
-    $('#data-form').attr('action', $(this).data('update')).attr('method', 'PUT');
-    $('#myModalLabel').text('编辑')
-
-    $.get($(this).data('show'), function (data) {
-        if (data.status != 1) {
-            layer.alert(data.message);
-            return false;
-        }
-
-        $('#name').val(data.contents.name);
-        $('#title').val(data.contents.title);
-        $('#group').val(data.contents.group);
-        $('#group_name').val(data.contents.group_name);
-        $('#sortord').val(data.contents.sortord);
-        $('[name="status"][value="' + data.contents.status + '"]').prop('checked', true);
-        $('[name="menu_show"][value="' + data.contents.menu_show + '"]').prop('checked', true);
-        $('[name="menu_click"][value="' + data.contents.menu_click + '"]').prop('checked', true);
-
+        $('#data-form').attr('action', "{{ route('admin.system.rule.store') }}").attr('method', 'POST');
         $('#myModal').modal();
-    }, 'json');
-});
+    });
 
-// 提交
-$('#submit-data-form').click(function () {
-    var load = layer.load(0, {shade: 0.2});
+    // 编辑
+    $('.edit').click(function () {
+        $('#data-form').attr('action', $(this).data('update')).attr('method', 'PUT');
+        $('#myModalLabel').text('编辑')
 
-    $.ajax({
-        url: $('#data-form').attr('action'),
-        type: 'POST',
-        dataType: 'json',
-        data: {
-            name:       $('#name').val(),
-            title:      $('#title').val(),
-            group:      $('#group').val(),
-            group_name: $('#group_name').val(),
-            sortord:    $('#sortord').val(),
-            status:     $('[name="status"]:checked').val(),
-            menu_show:  $('[name="menu_show"]:checked').val(),
-            menu_click: $('[name="menu_click"]:checked').val(),
-            _method:    $('#data-form').attr('method')
-        },
-        error: function (data) {
-            layer.close(load);
-            errors = data.responseJSON.errors;
-            for (key in errors) {
-                layer.alert(errors[key][0], {icon: 5});
+        $.get($(this).data('show'), function (data) {
+            if (data.status != 1) {
+                layer.alert(data.message);
                 return false;
             }
-        },
-        success: function (data) {
-            if (data.status == 1) {
-                window.location.reload();
-            } else {
-                layer.close(load);
-                layer.alert(data.message, {icon: 5});
-            }
-        }
+
+            $('#name').val(data.contents.name);
+            $('#title').val(data.contents.title);
+            $('#group').val(data.contents.group);
+            $('#group_name').val(data.contents.group_name);
+            $('#sortord').val(data.contents.sortord);
+            $('[name="status"][value="' + data.contents.status + '"]').prop('checked', true);
+            $('[name="menu_show"][value="' + data.contents.menu_show + '"]').prop('checked', true);
+            $('[name="menu_click"][value="' + data.contents.menu_click + '"]').prop('checked', true);
+
+            $('#myModal').modal();
+        }, 'json');
     });
-});
+
+    // 提交
+    $('#submit-data-form').click(function () {
+        buer_post($('#data-form').attr('action'), {
+            name: $('#name').val(),
+            title: $('#title').val(),
+            group: $('#group').val(),
+            group_name: $('#group_name').val(),
+            sortord: $('#sortord').val(),
+            status: $('[name="status"]:checked').val(),
+            menu_show: $('[name="menu_show"]:checked').val(),
+            menu_click: $('[name="menu_click"]:checked').val(),
+            _method: $('#data-form').attr('method')
+        }, false);
+    });
 </script>
 @endsection

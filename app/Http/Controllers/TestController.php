@@ -8,6 +8,6 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        return view('test');
+        my_config(['aa' => 'bb'], 'cc');
     }
 }

@@ -55,22 +55,23 @@ class BuerApi
 
     public function getParams($request, $user)
     {
-        if ($request->filled('data')) {
-            $params = (new Aes256cbc($user->secret_key))->decrypt($request->data, true, true);
-            my_log('buer-api', ['data解密' => $params]);
-
-            // 更新$request参数
-            $request->replace($params);
-
-            // 验证时间
-            if (!$request->filled('timestamp')) {
-                throw new CustomException('参数有误: timestamp');
-            }
-            if (abs(time() - (int)$request->timestamp) > 300) {
-                throw new CustomException('请求过期');
-            }
-        } else {
+        if (!$request->filled('data')) {
             throw new CustomException('缺少数据参数');
+        }
+
+        $params = (new Aes256cbc($user->secret_key))->decrypt($request->data, true, true);
+        my_log('buer-api', ['data解密' => $params]);
+
+        // 更新$request参数
+        $request->replace($params);
+
+        // 验证时间
+        if (!$request->filled('timestamp')) {
+            throw new CustomException('参数有误: timestamp');
+        }
+
+        if (abs(time() - (int)$request->timestamp) > 300) {
+            throw new CustomException('请求过期');
         }
     }
 }

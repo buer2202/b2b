@@ -23,13 +23,16 @@ class BuerApi
 
         try {
             if (!$request->filled('secret_id')) {
-                throw new CustomException('参数有误: secret_id');
+                throw new CustomException('参数错误: secret_id');
             }
+            if (!$request->filled('data')) {
+                throw new CustomException('参数错误: data');
+            }
+
             // 查找用户
             $user = $this->getUser($request->secret_id);
             // 提取参数
             $this->getParams($request, $user);
-
             // 用户登陆
             Auth::login($user);
         } catch (CustomException $e) {
@@ -55,14 +58,10 @@ class BuerApi
 
     public function getParams($request, $user)
     {
-        if (!$request->filled('data')) {
-            throw new CustomException('缺少数据参数');
-        }
-
         $params = (new Aes256cbc($user->secret_key))->decrypt($request->data, true, true);
         my_log('buer-api', ['data解密' => $params]);
 
-        // 更新$request参数
+        // 替换$request参数
         $request->replace($params);
 
         // 验证时间

@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
 
         'admin.rbac' => \App\Http\Middleware\AdminRBAC::class,
         'home.rbac' => \App\Http\Middleware\HomeRBAC::class,
+        'buer.api' => \App\Http\Middleware\BuerApi::class,
     ];
 }

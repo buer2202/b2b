@@ -1,4 +1,5 @@
 @extends('admin.layouts.base')
+@section('title', '管理员登录')
 
 @section('content')
 <div class="container">

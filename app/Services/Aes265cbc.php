@@ -33,6 +33,7 @@ class Aes256cbc
         }
 
         $iv = str_random(openssl_cipher_iv_length($this->cipher));
+        // OPENSSL_RAW_DATA方式【会用PKCS#7进行补位】
         $value = openssl_encrypt($value, $this->cipher, $this->key, OPENSSL_RAW_DATA, $iv);
         if ($value === false) {
             throw new CustomException('加密失败');

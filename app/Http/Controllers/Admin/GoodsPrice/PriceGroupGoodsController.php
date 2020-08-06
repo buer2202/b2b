@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PriceSystem;
+namespace App\Http\Controllers\Admin\GoodsPirce;
 
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class PriceGroupGoodsController extends Controller
         $group = PriceGroupRepository::find($groupId);
         $dataList = PriceGroupRepository::inGroupGoods($group, $request->goods_name);
         $config = config('price_group.goods_model');
-        return view('admin.price-system.price-group-goods.inside', compact('group', 'dataList', 'config'));
+        return view('admin.goods-price.price-group-goods.inside', compact('group', 'dataList', 'config'));
     }
 
     // 组外商品管理
@@ -23,7 +23,7 @@ class PriceGroupGoodsController extends Controller
     {
         $group = PriceGroupRepository::find($groupId);
         $dataList = PriceGroupRepository::outGroupGoods($group, $request->goods_name);
-        return view('admin.price-system.price-group-goods.outside', compact('group', 'dataList'));
+        return view('admin.goods-price.price-group-goods.outside', compact('group', 'dataList'));
     }
 
     // 添加商品

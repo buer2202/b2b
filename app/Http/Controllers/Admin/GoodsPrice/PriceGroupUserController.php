@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PriceSystem;
+namespace App\Http\Controllers\Admin\GoodsPirce;
 
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class PriceGroupUserController extends Controller
         $group = PriceGroupRepository::find($groupId);
         $dataList = PriceGroupRepository::inGroupUsers($group, $request->search_key);
         $bizGroups = PriceGroupRepository::getByGoodsModel($group->goods_model, $group->id);
-        return view('admin.price-system.price-group-user.inside', compact('group', 'dataList', 'bizGroups'));
+        return view('admin.goods-price.price-group-user.inside', compact('group', 'dataList', 'bizGroups'));
     }
 
     // 组外用户管理
@@ -23,7 +23,7 @@ class PriceGroupUserController extends Controller
     {
         $group = PriceGroupRepository::find($groupId);
         $dataList = PriceGroupRepository::outGroupUsers($group->goods_model, $request->search_key);
-        return view('admin.price-system.price-group-user.outside', compact('group', 'dataList'));
+        return view('admin.goods-price.price-group-user.outside', compact('group', 'dataList'));
     }
 
     // 添加用户

@@ -39,7 +39,7 @@
         <td>{{ (float)$data->pivot->sales_price ?: '未上架' }}</td>
         <td>
             <button type="button" class="btn btn-success btn-xs edit-price" data-name="{{ $group->name }}"
-                data-url="{{ route('admin.price-system.price-group-goods.edit-price', $data->pivot->id) }}">变价</button>
+                data-url="{{ route('admin.goods-price.price-group-goods.edit-price', $data->pivot->id) }}">变价</button>
         </td>
     </tr>
     @endforeach
@@ -103,7 +103,7 @@
             shadeClose: true,
             shade: 0.2,
             area: ['95%', '95%'],
-            content: "{{ route('admin.price-system.price-group-goods.outside', $group->id) }}"
+            content: "{{ route('admin.goods-price.price-group-goods.outside', $group->id) }}"
         });
     });
 

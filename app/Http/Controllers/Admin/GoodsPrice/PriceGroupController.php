@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PriceSystem;
+namespace App\Http\Controllers\Admin\GoodsPirce;
 
 use App\Exceptions\CustomException;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class PriceGroupController extends Controller
     {
         $dataList = PriceGroupRepository::getList($request->goods_model, $request->name);
         $config = config('price_group.goods_model');
-        return view('admin.price-system.price-group.index', compact('dataList', 'config'));
+        return view('admin.goods-price.price-group.index', compact('dataList', 'config'));
     }
 
     /**
@@ -71,7 +71,7 @@ class PriceGroupController extends Controller
         }
 
         $respData = [
-            'url'        => route('admin.price-system.price-group-user.inside', ['groupId' => $rslt->price_group_id, 'search_key' => $request->user_id]),
+            'url'        => route('admin.goods-price.price-group-user.inside', ['groupId' => $rslt->price_group_id, 'search_key' => $request->user_id]),
             'group_id'   => $rslt->price_group_id,
             'group_name' => $rslt->priceGroup->name,
         ];

@@ -75,7 +75,7 @@
             shadeClose: true,
             shade: 0.2,
             area: ['95%', '95%'],
-            content: "{{ route('admin.price-system.price-group-user.outside', $group->id) }}"
+            content: "{{ route('admin.goods-price.price-group-user.outside', $group->id) }}"
         });
     });
 
@@ -87,7 +87,7 @@
     // 删除
     $('#delete').click(function () {
         layer.alert('再次确认', function () {
-            buer_post("{{ route('admin.price-system.price-group-user.delete', $group->id) }}", $(
+            buer_post("{{ route('admin.goods-price.price-group-user.delete', $group->id) }}", $(
                 '#form-discount-users').serialize());
         });
     });
@@ -100,7 +100,7 @@
         }
 
         layer.alert('确认移动到组 ' + groupId + ' 吗？', function () {
-            buer_post("{{ route('admin.price-system.price-group-user.move', $group->id) }}",
+            buer_post("{{ route('admin.goods-price.price-group-user.move', $group->id) }}",
                 'new_group_id=' + groupId + '&' +
                 $('#form-discount-users').serialize());
         });

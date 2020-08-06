@@ -45,12 +45,12 @@
         <td>{{ $data->updated_at }}</td>
         <td>
             <button class="btn btn-warning btn-xs edit-price-group-name"
-                data-url="{{ route('admin.price-system.price-group.update', $data->id) }}">改名</button>
+                data-url="{{ route('admin.goods-price.price-group.update', $data->id) }}">改名</button>
             <button class="btn btn-success btn-xs open-iframe"
-                data-url="{{ route('admin.price-system.price-group-goods.inside', $data->id) }}"
+                data-url="{{ route('admin.goods-price.price-group-goods.inside', $data->id) }}"
                 data-iframe-title="组商品管理：{{ $data->id }} - {{ $data->name }}">密价</button>
             <button class="btn btn-info btn-xs open-iframe"
-                data-url="{{ route('admin.price-system.price-group-user.inside', $data->id) }}"
+                data-url="{{ route('admin.goods-price.price-group-user.inside', $data->id) }}"
                 data-iframe-title="组用户管理：{{ $data->id }} - {{ $data->name }}">用户</button>
         </td>
     </tr>
@@ -109,7 +109,7 @@
 
     // 添加
     $('#add-price-group').click(function () {
-        buer_post("{{ route('admin.price-system.price-group.store') }}", {
+        buer_post("{{ route('admin.goods-price.price-group.store') }}", {
             goods_model: $('#goods_model').val(),
             name: $('#name').val()
         }, false);
@@ -145,7 +145,7 @@
     $('#search-user').click(function () {
         var load = layer.load(0, {shade: 0.3});
 
-        $.get("{{ route('admin.price-system.price-group.search-user') }}", {
+        $.get("{{ route('admin.goods-price.price-group.search-user') }}", {
             goods_model: $('[name="goods_model"]').val(),
             user_id: $('#user_id').val()
         }, function (data) {

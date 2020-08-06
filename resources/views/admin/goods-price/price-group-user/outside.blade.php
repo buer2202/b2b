@@ -1,10 +1,21 @@
 @extends('admin.layouts.iframe')
+@section('css')
+<style type="text/css">
+    .row .panel-body {
+        padding: 0 10px;
+    }
+
+    .user-box {
+        padding: 0 5px;
+    }
+</style>
+@endsection
 
 @section('content')
 <form>
     <div class="input-group" style="float: left; width: 300px;">
-        <input type="text" class="form-control" name="goods_name" placeholder="商品名称"
-            value="{{ request('goods_name') }}">
+        <input type="text" class="form-control" name="search_key" placeholder="用户ID，真实姓名，备注"
+            value="{{ request('search_key') }}">
         <span class="input-group-btn">
             <button class="btn btn-primary" type="submit">查询</button>
         </span>
@@ -16,18 +27,19 @@
 
 <hr />
 
-<form id="form-discount-goods" style="height: 500px; overflow-x: hidden;overflow-y: auto; padding: 0 10px;">
-    @foreach ($dataList->chunk(4) as $chunk)
+<form id="form-discount-users" style="height: 500px; overflow-x: hidden;overflow-y: auto; padding: 0 10px;">
+    @foreach ($dataList->chunk(6) as $chunk)
     <div class="row">
-        @foreach ($chunk as $goods)
-        <div class="col-md-3 user-box">
+        @foreach ($chunk as $user)
+        <div class="col-md-2 user-box">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="goods[]" value="{{ $goods->id }}" />
-                            <div class="text-primary">{{ $goods->name }}</div>
-                            <div>面值:{{ $goods->face_value }}元（ID:{{ $goods->id }}）</div>
+                            <input type="checkbox" name="users[]" value="{{ $user->id }}" />
+                            <div>{{ $user->id }}</div>
+                            <div class="text-primary">{{ $user->real_name ?: '--' }}</div>
+                            <div class="text-info">{{ $user->remark ?: '--' }}</div>
                         </label>
                     </div>
                 </div>
@@ -43,13 +55,13 @@
 <script>
     // 全选
     $('#select-all').click(function () {
-        $('[name="goods[]"]').prop('checked', true);
+        $('[name="users[]"]').prop('checked', true);
     });
 
     $('#add').click(function () {
-        layer.alert('将勾选商品添加到组：{{ $group->name }}', function () {
-            buer_post("{{ route('admin.price-system.price-group-goods.add', $group->id) }}", $(
-                '#form-discount-goods').serialize(), function (data, load) {
+        layer.alert('将勾选用户添加到组：{{ $group->name }}', function () {
+            buer_post("{{ route('admin.goods-price.price-group-user.add', $group->id) }}", $(
+                '#form-discount-users').serialize(), function (data, load) {
                 layer.close(load);
 
                 if (data.status) {

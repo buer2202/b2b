@@ -40,33 +40,35 @@ Route::namespace('User')->prefix('user')->group(function () {
 });
 
 // 商品管理
-Route::namespace('PriceSystem')->prefix('price-system')->group(function () {
+Route::namespace('GoodsPirce')->prefix('goods-price')->group(function () {
     // 价格组管理
-    Route::get('price-group/search-user', 'PriceGroupController@searchUser')->name('admin.price-system.price-group.search-user');
+    Route::get('price-group/search-user', 'PriceGroupController@searchUser')->name('admin.goods-price.price-group.search-user');
     Route::resource('price-group', 'PriceGroupController', ['names' => [
-        'index'  => 'admin.price-system.price-group.index',
-        'store'  => 'admin.price-system.price-group.store',
-        'update' => 'admin.price-system.price-group.update',
+        'index'  => 'admin.goods-price.price-group.index',
+        'store'  => 'admin.goods-price.price-group.store',
+        'update' => 'admin.goods-price.price-group.update',
     ], 'only' => ['index', 'store', 'update']]);
 
     // 组用户管理
     Route::prefix('{groupId}/price-group-user')->group(function () {
-        Route::get('inside', 'PriceGroupUserController@inside')->name('admin.price-system.price-group-user.inside');
-        Route::get('outside', 'PriceGroupUserController@outside')->name('admin.price-system.price-group-user.outside');
-        Route::post('add', 'PriceGroupUserController@add')->name('admin.price-system.price-group-user.add');
-        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.price-system.price-group-user.delete');
-        Route::post('move', 'PriceGroupUserController@move')->name('admin.price-system.price-group-user.move');
+        Route::get('inside', 'PriceGroupUserController@inside')->name('admin.goods-price.price-group-user.inside');
+        Route::get('outside', 'PriceGroupUserController@outside')->name('admin.goods-price.price-group-user.outside');
+        Route::post('add', 'PriceGroupUserController@add')->name('admin.goods-price.price-group-user.add');
+        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.goods-price.price-group-user.delete');
+        Route::post('move', 'PriceGroupUserController@move')->name('admin.goods-price.price-group-user.move');
     });
 
     // 组商品管理
     Route::prefix('{groupId}/price-group-goods')->group(function () {
-        Route::get('inside', 'PriceGroupGoodsController@inside')->name('admin.price-system.price-group-goods.inside');
-        Route::get('outside', 'PriceGroupGoodsController@outside')->name('admin.price-system.price-group-goods.outside');
-        Route::post('add', 'PriceGroupGoodsController@add')->name('admin.price-system.price-group-goods.add');
-        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.price-system.price-group-goods.delete');
+        Route::get('inside', 'PriceGroupGoodsController@inside')->name('admin.goods-price.price-group-goods.inside');
+        Route::get('outside', 'PriceGroupGoodsController@outside')->name('admin.goods-price.price-group-goods.outside');
+        Route::post('add', 'PriceGroupGoodsController@add')->name('admin.goods-price.price-group-goods.add');
+        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.goods-price.price-group-goods.delete');
     });
-    Route::get('price-group-goods/{id}', 'PriceGroupGoodsController@editPrice')->name('admin.price-system.price-group-goods.edit-price');
-    Route::post('price-group-goods/{id}', 'PriceGroupGoodsController@updatePrice')->name('admin.price-system.price-group-goods.update-price');
+    Route::get('price-group-goods/{id}', 'PriceGroupGoodsController@editPrice')->name('admin.goods-price.price-group-goods.edit-price');
+    Route::post('price-group-goods/{id}', 'PriceGroupGoodsController@updatePrice')->name('admin.goods-price.price-group-goods.update-price');
+
+
 });
 
 // 财务管理

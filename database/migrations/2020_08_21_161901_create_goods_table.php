@@ -15,16 +15,16 @@ class CreateGoodsTable extends Migration
     {
         Schema::create('goods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('no', 20)->comment('编码');
             $table->unsignedInteger('goods_category_id')->comment('分类id，关联goods_categories.id');
             $table->string('name', 100)->comment('名称');
-            $table->integer('parvalue')->comment('面值');
+            $table->integer('face_value')->comment('面值');
             $table->tinyInteger('status')->comment('状态：0.禁用 1.正常');
             $table->timestamps();
 
-            $table->unique('no');
             $table->index('goods_category_id');
         });
+
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE goods AUTO_INCREMENT=' . rand(10000, 99999));
     }
 
     /**

@@ -68,7 +68,21 @@ Route::namespace('GoodsPirce')->prefix('goods-price')->group(function () {
     Route::get('price-group-goods/{id}', 'PriceGroupGoodsController@editPrice')->name('admin.goods-price.price-group-goods.edit-price');
     Route::post('price-group-goods/{id}', 'PriceGroupGoodsController@updatePrice')->name('admin.goods-price.price-group-goods.update-price');
 
+    // 基础商品分类
+    Route::resource('goods-category', 'GoodsCategoryController', ['names' => [
+        'index'  => 'admin.goods-price.goods-category.index',
+        'store'  => 'admin.goods-price.goods-category.store',
+        'show'   => 'admin.goods-price.goods-category.show',
+        'update' => 'admin.goods-price.goods-category.update',
+    ], 'only' => ['index', 'store', 'show', 'update']]);
 
+    // 基础商品资料
+    Route::resource('goods', 'GoodsController', ['names' => [
+        'index'  => 'admin.goods-price.goods.index',
+        'store'  => 'admin.goods-price.goods.store',
+        'show'   => 'admin.goods-price.goods.show',
+        'update' => 'admin.goods-price.goods.update',
+    ], 'only' => ['index', 'store', 'show', 'update']]);
 });
 
 // 财务管理

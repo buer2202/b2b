@@ -136,4 +136,30 @@ class User extends Authenticatable
 
         return $menus;
     }
+
+    // 售价组
+    public function priceGroupUsers()
+    {
+        return $this->hasMany(PriceGroupUser::class);
+    }
+
+    // 获取组密价
+    public function groupPrice(Model $goods)
+    {
+        $priceGroupId = PriceGroupUser::where('user_id', $this->id)
+            ->where('goods_model', get_class($goods))
+            ->value('price_group_id');
+        if (!$priceGroupId) {
+            throw new CustomException('尚未设置价格');
+        }
+
+        $priceGroupGoods = PriceGroupGoods::where('price_group_id', $priceGroupId)
+            ->where('goods_id', $goods->id)
+            ->first();
+        if (!$priceGroupGoods) {
+            throw new CustomException('尚未设置商品价格');
+        }
+
+        return $priceGroupGoods;
+    }
 }

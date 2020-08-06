@@ -1,8 +1,4 @@
-@extends('layouts.admin')
-@section('nav')
-<div>&nbsp;</div>
-@endsection
-@section('crumbs', '')
+@extends('admin.layouts.iframe')
 
 @section('content')
 <form>

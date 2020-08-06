@@ -90,9 +90,8 @@ class PriceGroupRepository
     public static function outGroupUsers($goodsModel, $searchKey = null)
     {
         $dataList = User::whereDoesntHave('priceGroupUsers', function ($query) use ($goodsModel) {
-            $query->where('goods_model', $goodsModel);
-        })
-            ->where('parent_id', 0)
+                $query->where('goods_model', $goodsModel);
+            })
             ->when($searchKey, function ($query) use ($searchKey) {
                 return $query->where(function ($query) use ($searchKey) {
                     $query->where('users.id', $searchKey)

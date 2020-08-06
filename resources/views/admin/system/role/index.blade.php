@@ -259,7 +259,7 @@
 
     // 提交角色权限
     $('#rules-form').submit(function () {
-        buer_post($(this).attr('action'), $(this).serialize(), null, function (data, load) {
+        buer_post($(this).attr('action'), $(this).serialize(), function (data, load) {
             layer.close(load);
 
             if (data.status == 1) {

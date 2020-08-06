@@ -39,6 +39,36 @@ Route::namespace('User')->prefix('user')->group(function () {
     ], 'only' => ['index', 'store', 'show', 'update']]);
 });
 
+// 商品管理
+Route::namespace('PriceSystem')->prefix('price-system')->group(function () {
+    // 价格组管理
+    Route::get('price-group/search-user', 'PriceGroupController@searchUser')->name('admin.price-system.price-group.search-user');
+    Route::resource('price-group', 'PriceGroupController', ['names' => [
+        'index'  => 'admin.price-system.price-group.index',
+        'store'  => 'admin.price-system.price-group.store',
+        'update' => 'admin.price-system.price-group.update',
+    ], 'only' => ['index', 'store', 'update']]);
+
+    // 组用户管理
+    Route::prefix('{groupId}/price-group-user')->group(function () {
+        Route::get('inside', 'PriceGroupUserController@inside')->name('admin.price-system.price-group-user.inside');
+        Route::get('outside', 'PriceGroupUserController@outside')->name('admin.price-system.price-group-user.outside');
+        Route::post('add', 'PriceGroupUserController@add')->name('admin.price-system.price-group-user.add');
+        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.price-system.price-group-user.delete');
+        Route::post('move', 'PriceGroupUserController@move')->name('admin.price-system.price-group-user.move');
+    });
+
+    // 组商品管理
+    Route::prefix('{groupId}/price-group-goods')->group(function () {
+        Route::get('inside', 'PriceGroupGoodsController@inside')->name('admin.price-system.price-group-goods.inside');
+        Route::get('outside', 'PriceGroupGoodsController@outside')->name('admin.price-system.price-group-goods.outside');
+        Route::post('add', 'PriceGroupGoodsController@add')->name('admin.price-system.price-group-goods.add');
+        Route::post('delete', 'PriceGroupUserController@delete')->name('admin.price-system.price-group-goods.delete');
+    });
+    Route::get('price-group-goods/{id}', 'PriceGroupGoodsController@editPrice')->name('admin.price-system.price-group-goods.edit-price');
+    Route::post('price-group-goods/{id}', 'PriceGroupGoodsController@updatePrice')->name('admin.price-system.price-group-goods.update-price');
+});
+
 // 财务管理
 Route::namespace('Finance')->prefix('finance')->group(function () {
     // 平台资产

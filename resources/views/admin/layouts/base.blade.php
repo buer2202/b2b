@@ -40,6 +40,21 @@
                     @if (auth()->guard('admin')->guest())
                         &nbsp;
                     @else
+                        <!-- 特殊的组，不进入权限管理 -->
+                        @if (Auth::user()->isAdministrator())
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ route('admin.system.administrator.index') }}">管理员管理</a></li>
+                                    <li><a href="{{ route('admin.system.role.index') }}">角色授权管理</a></li>
+                                    <li><a href="{{ route('admin.system.rule.index') }}">系统权限管理</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{{ route('admin.system.config.index') }}">系统配置管理</a></li>
+                                </ul>
+                            </li>
+                        @endif
+
                         @foreach ($menus as $group => $menu)
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -57,21 +72,6 @@
                                 </ul>
                             </li>
                         @endforeach
-
-                    <!-- 特殊的组，不进入权限管理 -->
-                        @if (Auth::user()->isAdministrator())
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">系统管理 <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('admin.system.administrator.index') }}">管理员管理</a></li>
-                                    <li><a href="{{ route('admin.system.role.index') }}">角色授权管理</a></li>
-                                    <li><a href="{{ route('admin.system.rule.index') }}">系统权限管理</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{{ route('admin.system.config.index') }}">系统配置管理</a></li>
-                                </ul>
-                            </li>
-                        @endif
 
                     @endif
                 </ul>

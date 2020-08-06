@@ -12,10 +12,10 @@ class GoodsController extends Controller
 {
     public function index(Request $request)
     {
-        $dataList = GoodsRepository::getList($request->category_id, $request->km_goods_id, $request->name);
+        $dataList = GoodsRepository::getList($request->category_id, $request->goods_id, $request->name);
         $categories = GoodsCategoryRepository::getList();
-        
-        return view('admin.goods.km-goods.index', compact('dataList', 'categories'));
+
+        return view('admin.goods-price.goods.index', compact('dataList', 'categories'));
     }
 
     public function store(Request $request)

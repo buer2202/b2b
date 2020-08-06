@@ -9,12 +9,12 @@ use Illuminate\Database\QueryException;
 
 class GoodsRepository
 {
-    public static function getList($categoryId, $goodsId, $name)
+    public static function getList($goodsCategoryId, $goodsId, $name)
     {
-        $dataList = Goods::with('category')
+        $dataList = Goods::with('goodsCategory')
             ->orderBy('goods_category_id')->orderBy('name')
-            ->when($categoryId, function ($query) use ($categoryId) {
-                return $query->where('goods_category_id', $categoryId);
+            ->when($goodsCategoryId, function ($query) use ($goodsCategoryId) {
+                return $query->where('goods_category_id', $goodsCategoryId);
             })
             ->when($goodsId, function ($query) use ($goodsId) {
                 return $query->where('id', $goodsId);
@@ -27,16 +27,16 @@ class GoodsRepository
         return $dataList;
     }
 
-    public static function store($categoryId, $name, $faceValue, $status)
+    public static function store($goodsCategoryId, $name, $faceValue, $status)
     {
         // 获取分类信息
-        $category = GoodsCategory::find($categoryId);
+        $category = GoodsCategory::find($goodsCategoryId);
         if (!$category) {
             throw new CustomException('分类ID不存在');
         }
 
         $model = new Goods;
-        $model->goods_category_id = $categoryId;
+        $model->goods_category_id = $goodsCategoryId;
         $model->name              = $name;
         $model->face_value        = $faceValue;
         $model->status            = $status;
@@ -57,22 +57,23 @@ class GoodsRepository
         return $model;
     }
 
-    public static function update($id, $categoryId, $name, $faceValue, $status)
+    public static function update($id, $goodsCategoryId, $name, $faceValue, $status)
     {
         // 获取分类信息
-        $category = GoodsCategory::find($categoryId);
+        $category = GoodsCategory::find($goodsCategoryId);
         if (!$category) {
             throw new CustomException('分类ID不存在');
         }
 
         $model = self::find($id);
-        $model->category_id = $categoryId;
-        $model->name        = $name;
-        $model->face_value  = $faceValue;
-        $model->status      = $status;
+        $model->goods_category_id = $goodsCategoryId;
+        $model->name              = $name;
+        $model->face_value        = $faceValue;
+        $model->status            = $status;
         try {
             $model->save();
         } catch (QueryException $e) {
+            throw new CustomException($e->getMessage());
             throw new CustomException('数据更新失败');
         }
         return true;

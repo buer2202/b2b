@@ -29,6 +29,7 @@ class GoodsCategoryRepository
         try {
             $model->save();
         } catch (QueryException $e) {
+            throw new CustomException($e->getMessage());
             throw new CustomException('数据写入失败');
         }
         return true;

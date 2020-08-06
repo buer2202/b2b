@@ -18,6 +18,7 @@ class CreateGoodsCategoriesTable extends Migration
             $table->string('no', 10)->comment('分类编码');
             $table->string('name', 100)->comment('分类名称');
             $table->integer('sortord')->comment('排序');
+            $table->tinyInteger('status')->comment('状态：0.禁用 1.正常');
             $table->timestamps();
 
             $table->unique('no');

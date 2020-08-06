@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cache;
 use Hash;
+use Illuminate\Database\Eloquent\Model;
 use Route;
 
 class User extends Authenticatable

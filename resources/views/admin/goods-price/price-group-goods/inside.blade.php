@@ -128,7 +128,7 @@
         buer_post($('#data-form').attr('action'), {
             cost_price: $('#cost_price').val(),
             sales_price: $('#sales_price').val()
-        });
+        }, false);
     });
 </script>
 @endsection

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cache;
 use Hash;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Database\Eloquent\Model;
 use Route;
 
@@ -31,6 +32,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // 访问器
+    public function getSecretKeyAttribute($value)
+    {
+        try {
+            return decrypt($value);
+        } catch (DecryptException $e) {
+            return '';
+        }
+    }
+
+    // 修改器
+    public function setSecretKeyAttribute($value)
+    {
+        $this->attributes['secret_key'] = encrypt($value);
+    }
 
     // 创建资产
     public function createAsset()

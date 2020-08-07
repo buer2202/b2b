@@ -19,7 +19,7 @@
 
 <hr />
 
-<table class="table table-striped table-condensed table-hover m-t" id="my-table">
+<table class="table table-striped table-condensed table-hover m-t">
     <thead>
         <tr>
             <th>商品ID</th>

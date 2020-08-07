@@ -1,11 +1,4 @@
 @extends('admin.layouts.base')
-@section('css')
-<style type="text/css">
-    #my-table th {
-        vertical-align: middle;
-    }
-</style>
-@endsection
 
 @section('content')
 <form class="form-inline">
@@ -30,7 +23,7 @@
     <button type="button" class="btn btn-success" id="add-new">新增</button>
 </form>
 
-<table class="table table-striped table-condensed table-hover m-t" id="master-table">
+<table class="table table-striped table-condensed table-hover m-t">
     <tr>
         <th>商品ID</th>
         <th>商品分类</th>

@@ -10,7 +10,7 @@
     <button type="button" class="btn btn-success" id="add-new">新增</button>
 </form>
 
-<table class="table table-striped table-condensed table-hover m-t" id="master-table">
+<table class="table table-striped table-condensed table-hover m-t">
     <tr>
         <th>分类编码</th>
         <th>分类名称</th>

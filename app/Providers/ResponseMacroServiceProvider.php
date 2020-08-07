@@ -22,7 +22,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         });
 
         // 平台对公API响应
-        Response::macro('buerApi', function ($status, $message = 'success', $data = '') {
+        Response::macro('api', function ($status, $message = 'success', $data = '') {
             $respArr = ['status' => $status, 'message' => $message, 'data' => $data];
             my_log('api-resp', $respArr);
 

@@ -6,6 +6,8 @@
 @section('title', '系统配置管理')
 
 @section('content')
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">新增</button>
+
 <table class="table table-hover table-condensed table-bordered m-t">
     <tr>
         <th>配置项</th>
@@ -28,10 +30,60 @@
 </table>
 
 {{ $dataList->links() }}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="data-form">
+                    <div class="form-group">
+                        <label for="item" class="col-sm-3 control-label">配置项</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="item" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="value" class="col-sm-3 control-label">配置值</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="value" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="col-sm-3 control-label">配置说明</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="description" autocomplete="off">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submit-data-form">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')
 <script>
+    // 添加
+    $('#submit-data-form').click(function () {
+        buer_post("{{ route('admin.system.config.store') }}", {
+            item: $('#item').val(),
+            value: $('#value').val(),
+            description: $('#description').val()
+        }, false);
+    });
+
     // 编辑
     $('.edit').click(function () {
         var load = layer.load(0, {

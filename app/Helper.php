@@ -1,4 +1,7 @@
 <?php
+
+use App\Exceptions\CustomException;
+
 if (!function_exists('my_log')) {
     /**
      * 自定义日志写入
@@ -8,7 +11,7 @@ if (!function_exists('my_log')) {
     function my_log($fileName, $data)
     {
         if (!is_string($fileName)) {
-            throw new \App\Exceptions\CustomException('文件名必须是字符串');
+            throw new CustomException('文件名必须是字符串');
         }
         $data = ['logGroup' => LARAVEL_START, 'logData' => $data];
 
@@ -89,13 +92,13 @@ if (!function_exists('my_config')) {
     function my_config($item, $default = null)
     {
         if (!$item) {
-            throw new \App\Exceptions\CustomException('配置项名不能为空');
+            throw new CustomException('配置项名不能为空');
         }
 
         // 如果item是数组，就存
         if (is_array($item)) {
             if (count($item) != 1) {
-                throw new \App\Exceptions\CustomException('一次只能存一组数据');
+                throw new CustomException('一次只能存一组数据');
             }
 
             $config = \App\Models\Config::firstOrNew(['item' => key($item)]);

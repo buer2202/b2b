@@ -179,6 +179,7 @@ Route::namespace('System')->prefix('system')->group(function () {
 
     // 系统配置管理
     Route::get('config', 'ConfigController@index')->name('admin.system.config.index');
+    Route::post('config/store', 'ConfigController@store')->name('admin.system.config.store');
     Route::get('config/show', 'ConfigController@show')->name('admin.system.config.show');
     Route::post('config/update', 'ConfigController@update')->name('admin.system.config.update');
 });

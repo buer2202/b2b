@@ -15,6 +15,23 @@ class ConfigController extends Controller
         return view('admin.system.config.index', compact('dataList'));
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'item'        => 'bail|required|string',
+            'value'       => 'bail|required|string',
+            'description' => 'bail|required|string',
+        ]);
+
+        try {
+            my_config([$request->item => $request->value], $request->description);
+        } catch (CustomException $e) {
+            return response()->ajax(0, $e->getMessage());
+        }
+
+        return response()->ajax(1);
+    }
+
     public function show(Request $request)
     {
         $this->validate($request, ['item' => 'bail|required|string']);
@@ -30,12 +47,14 @@ class ConfigController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request, ['item' => 'bail|required|string']);
+        $this->validate($request, [
+            'item'  => 'bail|required|string',
+            'value' => 'bail|required|string',
+        ]);
 
         try {
             my_config([$request->item => $request->value]);
-        }
-        catch (CustomException $e) {
+        } catch (CustomException $e) {
             return response()->ajax(0, $e->getMessage());
         }
 

@@ -180,4 +180,24 @@ class User extends Authenticatable
 
         return $priceGroupGoods;
     }
+
+    // 获取组进价
+    public function groupCostPrice(Model $goods)
+    {
+        $priceGroupGoods = $this->groupPrice($goods);
+        if ($priceGroupGoods->cost_price == 0) {
+            throw new CustomException('尚未设置商品价格');
+        }
+        return (float)$priceGroupGoods->cost_price;
+    }
+
+    // 获取组售价
+    public function groupSalesPrice(Model $goods)
+    {
+        $priceGroupGoods = $this->groupPrice($goods);
+        if ($priceGroupGoods->sales_price == 0) {
+            throw new CustomException('尚未设置商品售价');
+        }
+        return (float)$priceGroupGoods->sales_price;
+    }
 }

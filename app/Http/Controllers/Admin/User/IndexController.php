@@ -22,10 +22,9 @@ class IndexController extends Controller
     public function apiSecret($userId)
     {
         $user = UserRepository::find($userId);
-        $secretKey = decrypt($user->secret_key);
-        $html = '';
-        $html .= "<b>secret_id：</b><p>{$user->secret_id}</p>";
-        $html .= "<b>secret_key：</b><p>{$secretKey}</p>";
+        $html = "<b>secret_id：</b><p>{$user->secret_id}</p>"
+              . "<b>secret_key：</b><p>{$user->secret_key}</p>";
+
         return response()->ajax(1, 'success', $html);
     }
 

@@ -27,6 +27,9 @@ class Kernel extends ConsoleKernel
         // 日结
         $schedule->command('daily-settlement:user-asset')->daily();
         $schedule->command('daily-settlement:platform-asset')->daily();
+
+        // 全局自动重复通知
+        $schedule->command('notification:send')->everyMinute();
     }
 
     /**

@@ -13,7 +13,7 @@ class Notification extends Command
      *
      * @var string
      */
-    protected $signature = 'notify:work';
+    protected $signature = 'notify:api';
 
     /**
      * The console command description.

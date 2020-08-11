@@ -19,7 +19,9 @@ class BuerApi
      */
     public function handle($request, Closure $next)
     {
-        my_log('buer-api', ['api' => $request->url(), 'body' => $request->getContent(), 'data' => $request->all()]);
+        my_log('buer-api', ['request_url'  => $request->url()]);
+        my_log('buer-api', ['request_body' => $request->getContent()]);
+        my_log('buer-api', ['request_data' => $request->all()]);
 
         try {
             if (!$request->filled('secret_id')) {
@@ -36,7 +38,7 @@ class BuerApi
             // 用户登陆
             Auth::login($user);
         } catch (CustomException $e) {
-            my_log('buer-api', ['异常' => $e->getMessage()]);
+            my_log('buer-api', ['error' => $e->getMessage()]);
             return response()->buerApi(0, $e->getMessage());
         }
 
@@ -59,7 +61,7 @@ class BuerApi
     public function getParams($request, $user)
     {
         $params = (new Aes256cbc($user->secret_key))->decrypt($request->data, true, true);
-        my_log('buer-api', ['data解密' => $params]);
+        my_log('buer-api', ['decrypted_data' => $params]);
 
         // 替换$request参数
         $request->replace($params);

@@ -7,6 +7,7 @@
 4. 配置数据库、redis、邮件相关参数。
 5. php artisan migrate
 6. php artisan db:seed
+7. 可选（需做日结和自动通知时）：添加crontab计划任务：* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
 
 后台管理地址：http://网址/admin
 <br>
@@ -18,7 +19,7 @@
 - 所有数据库自动迁移、自动填充。命令：php artisan migrate --seed
 - WebSocket：集成Worderman的gatewayworder服务端、客户端。命令：php artisan gatewayworder start {--d}，可选参数为是否后台执行。
 - API中间件/响应宏：buer.api中间件，接口数据aes解密替换到$request中。buerApi响应宏，对响应数据自动进行aes加密。
-- 自动重复通知：通过仓库NotificationRepository管理，后台进程命令：php artisan notify:api。
+- 自动重复通知：通过仓库NotificationRepository管理，后台进程命令：php artisan notify:api。默认通过任务计划每分钟执行。
 
 #### 业务功能
 - 前台：注册，登录，注销，用户管理，财务管理。

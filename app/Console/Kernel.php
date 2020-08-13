@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('daily-settlement:platform-asset')->daily();
 
         // 全局自动重复通知
-        $schedule->command('notification:send')->everyMinute();
+        $schedule->command('notify:api')->everyMinute();
     }
 
     /**

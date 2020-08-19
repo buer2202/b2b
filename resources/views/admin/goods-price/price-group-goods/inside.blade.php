@@ -111,8 +111,10 @@
     $('.edit-price').click(function () {
         $('#data-form').attr('action', $(this).data('url'));
         $('#name').val($(this).data('name'));
+        var load = layer.load(0, {shade: 0.3});
 
         $.get($(this).data('url'), function (data) {
+            layer.close(load);
             if (data.status) {
                 $('#cost_price').val(parseFloat(data.contents.cost_price));
                 $('#sales_price').val(parseFloat(data.contents.sales_price));

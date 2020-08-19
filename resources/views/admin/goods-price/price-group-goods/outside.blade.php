@@ -47,7 +47,7 @@
     });
 
     $('#add').click(function () {
-        layer.alert('将勾选商品添加到组：{{ $group->name }}', function () {
+        layer.confirm('将勾选商品添加到组：{{ $group->name }}', function () {
             buer_post("{{ route('admin.goods-price.price-group-goods.add', $group->id) }}", $(
                 '#form-discount-goods').serialize(), function (data, load) {
                 layer.close(load);

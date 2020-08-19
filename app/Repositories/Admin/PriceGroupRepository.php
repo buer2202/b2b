@@ -103,7 +103,7 @@ class PriceGroupRepository
         return $dataList;
     }
 
-    // 添加到组
+    // 将用户添加到组
     public static function addUsers($id, $userIds)
     {
         $model = self::find($id);
@@ -187,14 +187,14 @@ class PriceGroupRepository
     {
         $model = self::find($id);
 
-        // 先验证用户是否没有组
+        // 先验证商品是否没有组
         $alreadyHasGroupGoodsIds = PriceGroupGoods::where('price_group_id', $id)->whereIn('goods_id', $goodsIds)->pluck('goods_id');
         if ($alreadyHasGroupGoodsIds->isNotEmpty()) {
             $hasIds = $alreadyHasGroupGoodsIds->implode(',');
             throw new CustomException("{$hasIds} 已添加过！");
         }
 
-        // 写入组用户
+        // 写入组商品
         $datetime = date('Y-m-d H:i:s');
         foreach ($goodsIds as $goodsId) {
             $insertData[] = [

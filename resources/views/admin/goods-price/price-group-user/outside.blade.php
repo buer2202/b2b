@@ -59,7 +59,7 @@
     });
 
     $('#add').click(function () {
-        layer.alert('将勾选用户添加到组：{{ $group->name }}', function () {
+        layer.confirm('将勾选用户添加到组：{{ $group->name }}', function () {
             buer_post("{{ route('admin.goods-price.price-group-user.add', $group->id) }}", $(
                 '#form-discount-users').serialize(), function (data, load) {
                 layer.close(load);

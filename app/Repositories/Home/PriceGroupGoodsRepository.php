@@ -15,6 +15,7 @@ class PriceGroupGoodsRepository
             ->value('price_group_id');
 
         $goodsList = $goodsModeName::orderBy('name')
+            ->where('status', 1)
             ->whereHas('priceGroupGoods', function ($query) use ($priceGroupId) {
                 $query->where('price_group_id', $priceGroupId);
             })

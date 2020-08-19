@@ -182,7 +182,7 @@ class PriceGroupRepository
         return $dataList;
     }
 
-    // 添加商品
+    // 添加商品到组
     public static function addGoods($id, $goodsIds)
     {
         $model = self::find($id);

@@ -11,7 +11,7 @@ class TestController extends Controller
 {
     public function index(Request $request)
     {
-        // 通用商品列表获取方法
+        // 通用用户商品列表获取方法
         $dataList = PriceGroupGoodsRepository::goodsList(Goods::class);
         dump($dataList);
     }

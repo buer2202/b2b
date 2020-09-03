@@ -25,6 +25,7 @@ class Aes256cbc
 
         /**
          * 填充方式
+         * 0：用PKCS#7填充，结果自动使用base64编码
          * OPENSSL_RAW_DATA 或 1：用PKCS#7填充
          * OPENSSL_ZERO_PADDING 或 2：用\0填充（有bug）
          * OPENSSL_NO_PADDING 或 3：不填充

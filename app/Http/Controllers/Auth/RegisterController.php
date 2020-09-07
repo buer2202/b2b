@@ -77,7 +77,6 @@ class RegisterController extends Controller
             'id_number'   => $data['id_number'],
             'phone'       => $data['phone'],
             'status'      => 1,
-            'auth_status' => 0,
             'secret_key'  => str_random(32),
         ]);
         $user->secret_id = uniqid($user->id);

@@ -34,7 +34,7 @@
     <tr>
         <td>{{ $data->id }}</td>
         <td>{{ $data->name }}</td>
-        <td>（{{ $config[$group->goods_model] }}）{{ $group->name }}</td>
+        <td>{{ $config[$group->goods_model] }} - {{ $group->name }}</td>
         <td>{{ (float)$data->pivot->cost_price ?: '未上架' }}</td>
         <td>{{ (float)$data->pivot->sales_price ?: '未上架' }}</td>
         <td>

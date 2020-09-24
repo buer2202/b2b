@@ -80,7 +80,7 @@
                     <div class="form-group">
                         <label for="sales_price" class="col-sm-3 control-label"></label>
                         <div class="col-sm-7 text-danger">
-                            价格设为0表示不销售
+                            价格设为0或留空表示不销售
                         </div>
                     </div>
                 </form>

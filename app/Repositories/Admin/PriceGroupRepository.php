@@ -225,8 +225,8 @@ class PriceGroupRepository
     public static function updatePrice($priceGroupGoodsId, $costPrice, $salesPrice)
     {
         $priceGroupGoods = PriceGroupGoods::find($priceGroupGoodsId);
-        $priceGroupGoods->cost_price = $costPrice;
-        $priceGroupGoods->sales_price = $salesPrice;
+        $priceGroupGoods->cost_price = $costPrice ?: 0;
+        $priceGroupGoods->sales_price = $salesPrice ?: 0;
         $priceGroupGoods->save();
         return true;
     }

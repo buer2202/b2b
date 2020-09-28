@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<form class="form-inline" id="data-form">
+<form class="form-inline" id="inquiry-from">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         <input type="text" class="form-control" id="start-time" name="start_time" value="{{ $startTime }}" placeholder="开始时间" readonly>

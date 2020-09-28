@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<form class="form-inline" id="data-form">
+<form class="form-inline" id="inquiry-form">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         <input type="text" class="form-control" id="start-time" name="start_time"
@@ -164,7 +164,7 @@
     // 异步导出
     $('#export-flow').asyncExport({
         postUrl: "{{ route('admin.finance.platform-amount-flow.export') }}",
-        postData: $('#data-form').serialize(),
+        postData: $('#inquiry-form').serialize(),
         wsServerUrl: "{{ config('app.ws_url') }}",
         wsInitUrl: "{{ route('admin.web-socket.gateway-worker.bind') }}",
         taskName: 'platform_amount_flow'

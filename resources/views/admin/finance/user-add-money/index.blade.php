@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<form class="form-inline" id="data-form">
+<form class="form-inline" id="inquiry-from">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         <input type="text" class="form-control" id="start-time" name="start_time"
@@ -148,7 +148,7 @@
     $('#end-time').datetimepicker(option);
 
     $('#export-flow').click(function () {
-        var url = "{{ route('admin.finance.user-add-money.export') }}?" + $('#data-form').serialize();
+        var url = "{{ route('admin.finance.user-add-money.export') }}?" + $('#inquiry-from').serialize();
         window.location.href = url;
     });
 

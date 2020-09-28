@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<form class="form-inline" id="data-form">
+<form class="form-inline" id="inquiry-from">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
         <input type="text" class="form-control" id="start-time" name="start_time" value="{{ Request::input('start_time') }}" placeholder="开始时间" readonly>
@@ -81,7 +81,7 @@ $('#start-time').datetimepicker(option);
 $('#end-time').datetimepicker(option);
 
 $('#export-flow').click(function () {
-    var url = "{{ route('admin.statement.platform-asset-daily.export') }}?" + $('#data-form').serialize();
+    var url = "{{ route('admin.statement.platform-asset-daily.export') }}?" + $('#inquiry-from').serialize();
     window.location.href = url;
 });
 

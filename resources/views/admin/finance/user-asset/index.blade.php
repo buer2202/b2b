@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<form class="form-inline" id="data-form">
+<form class="form-inline" id="inquiry-from">
     <div class="form-group">
         <input type="text" class="form-control" placeholder="用户ID" name="user_id" value="{{ Request::input('user_id') }}">
     </div>

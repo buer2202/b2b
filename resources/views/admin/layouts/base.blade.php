@@ -62,11 +62,12 @@
                                             class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @foreach ($menu['items'] as $subMenu)
+                                        @php try { $menuUrl = route($subMenu['name']); } catch (\Exception $e) { continue; } @endphp
                                         {{-- 含有 separator-divider 关键字就是分割线 --}}
                                         @if (stripos($subMenu['name'], 'separator-divider'))
                                             <li role="separator" class="divider"></li>
                                         @else
-                                            <li><a href="{{ route($subMenu['name']) }}">{{ $subMenu['title'] }}</a></li>
+                                            <li><a href="{{ $menuUrl) }}">{{ $subMenu['title'] }}</a></li>
                                         @endif
                                     @endforeach
                                 </ul>

@@ -26,7 +26,7 @@ function buer_post(url, requestData = {}, callback = true) {
                 if (data.status) {
                     if (callback) {
                         layer.close(load);
-                        layer.alert('操作成功', function () {
+                        layer.alert('操作成功', {icon: 6}, function () {
                             window.location.reload();
                         });
                     } else {

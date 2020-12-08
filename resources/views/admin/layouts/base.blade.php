@@ -67,7 +67,7 @@
                                         @if (stripos($subMenu['name'], 'separator-divider'))
                                             <li role="separator" class="divider"></li>
                                         @else
-                                            <li><a href="{{ $menuUrl) }}">{{ $subMenu['title'] }}</a></li>
+                                            <li><a href="{{ $menuUrl }}">{{ $subMenu['title'] }}</a></li>
                                         @endif
                                     @endforeach
                                 </ul>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\GoodsPirce;
+namespace App\Http\Controllers\Admin\GoodsPrice;
 
 use App\Exceptions\CustomException;
 use App\Repositories\Admin\GoodsCategoryRepository;

@@ -11,12 +11,8 @@ class PlatformAssetDailyController extends Controller
 {
     public function index(Request $request)
     {
-        $dateStart = $request->start_time;
-        $dateEnd   = $request->end_time;
-
-        $dataList = PlatformAssetDailyRepository::getList($dateStart, $dateEnd);
-
-        return view('admin.statement.platform-asset-daily.index', compact('dataList', 'dateStart', 'dateEnd'));
+        $dataList = PlatformAssetDailyRepository::getList($request->start_time, $request->end_time);
+        return view('admin.statement.platform-asset-daily.index', compact('dataList'));
     }
 
     public function export(Request $request)

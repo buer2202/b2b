@@ -4,16 +4,16 @@
 <form class="form-inline" id="inquiry-from">
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-        <input type="text" class="form-control" id="start-time" name="start_time" value="{{ Request::input('start_time') }}" placeholder="开始时间" readonly>
+        <input type="text" class="form-control" id="start-time" name="start_time" value="{{ request('start_time') }}" placeholder="开始时间" readonly>
     </div>
 
     <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-        <input type="text" class="form-control" id="end-time" name="end_time" value="{{ Request::input('end_time') }}" placeholder="结束时间" readonly>
+        <input type="text" class="form-control" id="end-time" name="end_time" value="{{ request('end_time') }}" placeholder="结束时间" readonly>
     </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" placeholder="用户ID" name="user_id" value="{{ Request::input('user_id') }}">
+        <input type="text" class="form-control" placeholder="用户ID" name="user_id" value="{{ request('user_id') }}">
     </div>
 
     <button class="btn btn-primary" type="submit">查询</button>

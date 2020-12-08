@@ -40,7 +40,7 @@ Route::namespace('User')->prefix('user')->group(function () {
 });
 
 // 商品管理
-Route::namespace('GoodsPirce')->prefix('goods-price')->group(function () {
+Route::namespace('GoodsPrice')->prefix('goods-price')->group(function () {
     // 价格组管理
     Route::get('price-group/search-user', 'PriceGroupController@searchUser')->name('admin.goods-price.price-group.search-user');
     Route::resource('price-group', 'PriceGroupController', ['names' => [

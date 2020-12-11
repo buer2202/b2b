@@ -14,7 +14,7 @@
             $(document.body).infinite().on("infinite", function() {
                 if (loading) return false;
                 loading = true;
-                show_page(opts.pageUrl);
+                show_page();
             });
 
             function show_page() {

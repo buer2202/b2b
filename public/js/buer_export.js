@@ -8,7 +8,7 @@
                 postData: {},
                 callback: function (data) {
                     if (data.status) {
-                        that.attr('disabled', true).text('已进入任务队列，请稍后...');
+                        that.attr('disabled', true).text('已进入任务队列，请稍候！');
                     } else {
                         layer.alert(data.message, {icon: 5});
                     }

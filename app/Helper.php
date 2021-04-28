@@ -120,3 +120,13 @@ if (!function_exists('my_config')) {
         }
     }
 }
+
+/**
+ * 验证日期字符串
+ */
+if (!function_exists('checkDatetime')) {
+    function checkDateTime(string $dateTimeString, string $format = 'Y-m-d H:i:s')
+    {
+        return date($format, strtotime($dateTimeString)) == $dateTimeString;
+    }
+}

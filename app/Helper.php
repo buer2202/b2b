@@ -130,3 +130,23 @@ if (!function_exists('checkDatetime')) {
         return date($format, strtotime($dateTimeString)) == $dateTimeString;
     }
 }
+
+// 表单验证
+if (!function_exists('my_validator')) {
+    /**
+     * 更新自定义配置
+     * @return string
+     */
+    function my_validator(array $item, $throwException = true)
+    {
+        $validator = validator()->make(request()->all(), $item);
+        if ($validator->fails()) {
+            if ($throwException) {
+                throw new CustomException($validator->errors()->all()[0]);
+            } else {
+                return $validator->errors()->all()[0];
+            }
+        }
+        return null;
+    }
+}

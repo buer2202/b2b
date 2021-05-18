@@ -142,9 +142,9 @@ if (!function_exists('my_validator')) {
         $validator = validator()->make(request()->all(), $item);
         if ($validator->fails()) {
             if ($throwException) {
-                throw new CustomException($validator->errors()->all()[0]);
+                throw new CustomException($validator->errors()->first());
             } else {
-                return $validator->errors()->all()[0];
+                return $validator->errors()->first();
             }
         }
         return null;

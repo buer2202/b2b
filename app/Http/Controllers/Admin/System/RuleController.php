@@ -17,7 +17,7 @@ class RuleController extends Controller
     public function index(Request $request)
     {
         $dataList = AdminAuthRuleRepository::getList($request->title, $request->group_name);
-        return view('admin.system.rule.index', compact('dataList', 'config'));
+        return view('admin.system.rule.index', compact('dataList'));
     }
 
     /**
